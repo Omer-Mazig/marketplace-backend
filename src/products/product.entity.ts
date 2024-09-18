@@ -14,7 +14,7 @@ import { ProductCategory } from './enums/product-categories.enum';
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({
     type: 'varchar',
