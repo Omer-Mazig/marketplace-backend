@@ -14,6 +14,7 @@ import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard'
 import { AuthModule } from './auth/auth.module';
 import jwtConfig from './auth/config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -54,6 +55,8 @@ const ENV = process.env.NODE_ENV;
     // by the jwtConfig. This allows us to configure JWT options like secret
     // and expiration based on environment variables.
     JwtModule.registerAsync(jwtConfig.asProvider()),
+
+    WishlistModule,
   ],
   providers: [
     {
