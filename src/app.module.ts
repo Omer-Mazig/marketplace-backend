@@ -3,13 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { ProductsModule } from './products/products.module';
-import { MessagesModule } from './messages/messages.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import evniromentValidation from './config/evniroment.validation';
 import { User } from './users/user.entity';
 import { Product } from './products/product.entity';
-import { Message } from './messages/message.entity';
 
 const ENV = process.env.NODE_ENV;
 
@@ -37,11 +35,10 @@ const ENV = process.env.NODE_ENV;
       }),
     }),
 
-    TypeOrmModule.forFeature([User, Product, Message]),
+    TypeOrmModule.forFeature([User, Product]),
 
     UsersModule,
     ProductsModule,
-    MessagesModule,
   ],
 })
 export class AppModule {}

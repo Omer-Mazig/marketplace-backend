@@ -1,4 +1,3 @@
-// src/products/dto/create-product.dto.ts
 import {
   IsString,
   IsNumber,
@@ -26,17 +25,14 @@ export class CreateProductDto {
   @IsString()
   imageURL?: string;
 
-  // Validate owner as a nested object of type User
   @ValidateNested()
   @Type(() => User)
   owner: User;
 
-  // Validate categories as an array of enum values
   @IsArray()
   @IsEnum(ProductCategory, { each: true })
   categories: ProductCategory[];
 
-  // Validate wishlistUsers as an array of User objects
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => User)

@@ -1,3 +1,4 @@
+// src/users/user.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,8 +9,8 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-
 import { Product } from 'src/products/product.entity';
+import { UserTier } from './enums/user-tier.enum';
 
 @Entity()
 export class User {
@@ -28,8 +29,12 @@ export class User {
   @Column()
   password: string; // Note: Store hashed passwords only!
 
-  @Column({ default: false })
-  isPremium: boolean;
+  @Column({
+    type: 'enum',
+    enum: UserTier,
+    default: UserTier.STANDARD,
+  })
+  userTier: UserTier;
 
   @CreateDateColumn()
   createdAt: Date;
