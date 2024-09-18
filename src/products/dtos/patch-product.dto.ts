@@ -38,11 +38,11 @@ export class PatchProductDto extends PartialType(CreateProductDto) {
   @IsEnum(ProductCategory, { each: true })
   categories?: ProductCategory[];
 
-  @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => User)
-  wishlistUsers?: User[];
+  //   @IsOptional()
+  //   @IsArray()
+  //   @ValidateNested({ each: true })
+  //   @Type(() => User)
+  //   wishlistUsers?: User[];
 }
 
 // import { PartialType } from '@nestjs/mapped-types';

@@ -38,8 +38,8 @@ export class CreateProductDto {
   @IsEnum(ProductCategory, { each: true })
   categories: ProductCategory[];
 
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => User)
-  wishlistUsers: User[];
+  // @IsArray()
+  // @ValidateNested({ each: true })
+  // @Type(() => User)
+  // wishlistUsers: User[];
 }

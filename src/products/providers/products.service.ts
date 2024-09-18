@@ -106,8 +106,6 @@ export class ProductsService {
     product.price = patchProductDto.price ?? product.price;
     product.imageURL = patchProductDto.imageURL ?? product.imageURL;
     product.categories = patchProductDto.categories ?? product.categories;
-    product.wishlistUsers =
-      patchProductDto.wishlistUsers ?? product.wishlistUsers;
 
     try {
       return await this.productsRepository.save(product);
