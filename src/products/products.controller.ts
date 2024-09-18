@@ -13,6 +13,7 @@ import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { AuthType } from 'src/auth/enums/auth-type.enum';
+import { PatchProductDto } from './dtos/patch-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -46,8 +47,18 @@ export class ProductsController {
     return this.productsService.createProduct(createProductDto, activeUser);
   }
 
-  @Patch()
-  public updateProduct(@Body() updateProductDto) {
-    return 'Creating Product';
+  @Patch(':productId')
+  public updateProduct(
+    @Param('productId') productId: number,
+    @Body() patchProductDto: PatchProductDto,
+    @ActiveUser() activeUser: ActiveUserData,
+  ) {
+    console.log('hi mom');
+
+    return this.productsService.patchProduct(
+      productId,
+      patchProductDto,
+      activeUser,
+    );
   }
 }

@@ -1,4 +1,51 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateProductDto } from './create-product.dto';
+import {
+  IsArray,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+import { User } from 'src/users/user.entity';
+import { ProductCategory } from '../enums/product-categories.enum';
 
-export class PatchProductDto extends PartialType(CreateProductDto) {}
+export class PatchProductDto extends PartialType(CreateProductDto) {
+  // Explicitly make fields optional if they should not be required in patch
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  price?: number;
+
+  @IsOptional()
+  @IsString()
+  imageURL?: string;
+
+  // Categories and wishlistUsers may not be intended for patch operations
+  @IsOptional()
+  @IsArray()
+  @IsEnum(ProductCategory, { each: true })
+  categories?: ProductCategory[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => User)
+  wishlistUsers?: User[];
+}
+
+// import { PartialType } from '@nestjs/mapped-types';
+// import { CreateProductDto } from './create-product.dto';
+
+// export class PatchProductDto extends PartialType(CreateProductDto) {}
