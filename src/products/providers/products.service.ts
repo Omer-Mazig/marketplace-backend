@@ -2,6 +2,7 @@ import {
   Injectable,
   RequestTimeoutException,
   BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from '../product.entity';
@@ -34,6 +35,29 @@ export class ProductsService {
         },
       );
     }
+  }
+
+  public async deleteProduct(productId: number, activeUser: ActiveUserData) {
+    const product = await this.getProductById(productId);
+    if (product.owner.id !== activeUser.sub) {
+      throw new UnauthorizedException(
+        'Can not delete product that you do now own',
+      );
+    }
+
+    try {
+      await this.productsRepository.delete(productId);
+    } catch (error) {
+      console.error('[ProductsService - deleteProduct]', error);
+      throw new RequestTimeoutException(
+        'Unable to process your request. Please try later.',
+        {
+          description: 'Error connecting to the database',
+        },
+      );
+    }
+
+    return { deleted: true, productId };
   }
 
   public async getProductById(productId: number) {

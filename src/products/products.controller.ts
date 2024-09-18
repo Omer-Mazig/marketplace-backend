@@ -31,8 +31,11 @@ export class ProductsController {
   }
 
   @Delete(':productId')
-  public deleteProduct(@Param('productId') productId: number) {
-    return `Deleting ${productId}`;
+  public deleteProduct(
+    @Param('productId') productId: number,
+    @ActiveUser() activeUser: ActiveUserData,
+  ) {
+    return this.productsService.deleteProduct(productId, activeUser);
   }
 
   @Post()
