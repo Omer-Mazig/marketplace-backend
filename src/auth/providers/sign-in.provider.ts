@@ -22,14 +22,16 @@ export class SignInProvider {
   ) {}
   public async signIn(signInDto: SignInDto) {
     // will throw an error if user not found (see userService.findOneByEmail)
-    const user = await this.userService.findOneByEmail(signInDto.email);
+    const userWithPassword = await this.userService.findOneByEmailWithPassword(
+      signInDto.email,
+    );
 
     let isEqual = false;
 
     try {
       isEqual = await this.hashingProvider.comparePassword(
         signInDto.password,
-        user.password,
+        userWithPassword.password,
       );
     } catch (error) {
       throw new RequestTimeoutException(error, {
@@ -41,6 +43,6 @@ export class SignInProvider {
       throw new UnauthorizedException('Incorrect Password');
     }
 
-    return await this.generateTokensProvider.generateTokens(user);
+    return await this.generateTokensProvider.generateTokens(userWithPassword);
   }
 }

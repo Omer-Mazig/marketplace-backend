@@ -18,7 +18,9 @@ export class ProductsService {
 
   public async getProducts() {
     try {
-      return await this.productsRepository.find({});
+      return await this.productsRepository.find({
+        relations: ['owner'],
+      });
     } catch (error) {
       console.error('[ProductsService - getProducts]', error);
       throw new RequestTimeoutException(
@@ -35,11 +37,14 @@ export class ProductsService {
     user: ActiveUserData,
   ) {
     const owner = await this.usersService.findOneById(user.sub); // Handling errors in findOneById()
+    console.log('owner', owner);
 
     const product = this.productsRepository.create({
       ...createProductDto,
       owner,
     });
+
+    console.log('product', product);
 
     try {
       return await this.productsRepository.save(product);

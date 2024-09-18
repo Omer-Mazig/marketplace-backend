@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Product } from 'src/products/product.entity';
 import { UserTier } from './enums/user-tier.enum';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User {
@@ -26,7 +27,10 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({
+    select: false, // This will exclude the password from queries by default
+  })
+  @Exclude()
   password: string; // Note: Store hashed passwords only!
 
   @Column({

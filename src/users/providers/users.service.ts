@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { HashingProvider } from '../../auth/providers/hashing.provider';
-import { InjectRepository } from '@nestjs/typeorm';
+import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
 
@@ -115,5 +115,27 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  public async findOneByEmailWithPassword(email: string) {
+    let userWithPassword: User | null = null;
+
+    try {
+      userWithPassword = await this.usersRepository
+        .createQueryBuilder('user')
+        .addSelect('user.password')
+        .where('user.email = :email', { email })
+        .getOne();
+    } catch (error) {
+      throw new RequestTimeoutException(error, {
+        description: 'Could not fetch the user',
+      });
+    }
+
+    if (!userWithPassword) {
+      throw new UnauthorizedException('User does not exists');
+    }
+
+    return userWithPassword;
   }
 }
