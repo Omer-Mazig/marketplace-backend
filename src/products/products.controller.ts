@@ -8,12 +8,15 @@ import {
   Post,
 } from '@nestjs/common';
 import { CreateProductDto } from './dtos/create-product.dto';
+import { ProductsService } from './providers/products.service';
 
 @Controller('products')
 export class ProductsController {
+  constructor(private readonly productsService: ProductsService) {}
+
   @Get()
   public getProducts() {
-    return 'All Products';
+    return this.productsService.getProducts();
   }
 
   @Get(':productId')
