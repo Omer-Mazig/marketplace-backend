@@ -36,6 +36,32 @@ export class ProductsService {
     }
   }
 
+  public async getProductById(productId: number) {
+    let product: Product | null = null;
+    try {
+      product = await this.productsRepository.findOne({
+        where: {
+          id: productId,
+        },
+        relations: ['owner'],
+      });
+    } catch (error) {
+      console.error('[ProductsService - getProductById]', error);
+      throw new RequestTimeoutException(
+        'Unable to process your request. Please try later.',
+        {
+          description: 'Error connecting to the database',
+        },
+      );
+    }
+
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+
+    return product;
+  }
+
   public async createProduct(
     createProductDto: CreateProductDto,
     activeUser: ActiveUserData,

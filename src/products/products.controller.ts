@@ -27,7 +27,7 @@ export class ProductsController {
   @Get(':productId')
   @Auth(AuthType.None)
   public getProductById(@Param('productId') productId: number) {
-    return `Product ${productId}`;
+    return this.productsService.getProductById(productId);
   }
 
   @Delete(':productId')
