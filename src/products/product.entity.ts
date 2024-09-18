@@ -27,7 +27,9 @@ export class Product {
   })
   description?: string;
 
-  @Column('decimal')
+  @Column({
+    type: 'decimal',
+  })
   price: number;
 
   @Column({

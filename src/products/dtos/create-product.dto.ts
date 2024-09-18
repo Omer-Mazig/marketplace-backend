@@ -5,6 +5,8 @@ import {
   IsArray,
   IsEnum,
   ValidateNested,
+  IsNotEmpty,
+  IsPositive,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/users/user.entity';
@@ -12,6 +14,7 @@ import { ProductCategory } from '../enums/product-categories.enum';
 
 export class CreateProductDto {
   @IsString()
+  @IsNotEmpty()
   name: string;
 
   @IsOptional()
@@ -19,6 +22,8 @@ export class CreateProductDto {
   description?: string;
 
   @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
   price: number;
 
   @IsOptional()
