@@ -53,8 +53,6 @@ export class ProductsController {
     @Body() patchProductDto: PatchProductDto,
     @ActiveUser() activeUser: ActiveUserData,
   ) {
-    console.log('hi mom');
-
     return this.productsService.patchProduct(
       productId,
       patchProductDto,
