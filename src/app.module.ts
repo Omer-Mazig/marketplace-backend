@@ -8,11 +8,21 @@ import databaseConfig from './config/database.config';
 import evniromentValidation from './config/evniroment.validation';
 import { User } from './users/user.entity';
 import { Product } from './products/product.entity';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthenticationGuard } from './auth/guards/authentication/authentication.guard';
+import { AccessTokenGuard } from './auth/guards/access-token/access-token.guard';
+import { AuthModule } from './auth/auth.module';
+import jwtConfig from './auth/config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
 
 const ENV = process.env.NODE_ENV;
 
 @Module({
   imports: [
+    UsersModule,
+    ProductsModule,
+    AuthModule,
+
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: !ENV ? '.env' : `.env.${ENV}`,
@@ -35,10 +45,22 @@ const ENV = process.env.NODE_ENV;
       }),
     }),
 
-    TypeOrmModule.forFeature([User, Product]),
+    TypeOrmModule.forFeature([User, Product, AuthModule]),
 
-    UsersModule,
-    ProductsModule,
+    // Register the JWT configuration, making it available via the ConfigService
+    ConfigModule.forFeature(jwtConfig),
+
+    // Dynamically register the JWT module using the configuration provided
+    // by the jwtConfig. This allows us to configure JWT options like secret
+    // and expiration based on environment variables.
+    JwtModule.registerAsync(jwtConfig.asProvider()),
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthenticationGuard,
+    },
+    AccessTokenGuard,
   ],
 })
 export class AppModule {}
