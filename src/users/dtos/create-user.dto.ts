@@ -18,10 +18,10 @@ export class CreateUserDto {
   firstName: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MinLength(3)
   @MaxLength(96)
-  lastName?: string;
+  lastName: string;
 
   @IsEmail()
   @IsNotEmpty()

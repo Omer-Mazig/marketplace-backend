@@ -15,7 +15,7 @@ import { UserTier } from './enums/user-tier.enum';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   firstName: string;
