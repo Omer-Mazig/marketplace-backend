@@ -9,7 +9,6 @@ import {
   JoinTable,
 } from 'typeorm';
 
-import { Message } from 'src/messages/message.entity';
 import { Product } from 'src/products/product.entity';
 
 @Entity()
@@ -44,7 +43,4 @@ export class User {
   @ManyToMany(() => Product, (product) => product.wishlistUsers)
   @JoinTable()
   wishlist: Product[];
-
-  @OneToMany(() => Message, (message) => message.sender)
-  messages: Message[];
 }

@@ -1,3 +1,4 @@
+// src/products/product.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -6,30 +7,40 @@ import {
   UpdateDateColumn,
   ManyToOne,
   ManyToMany,
-  JoinTable,
-  OneToMany,
 } from 'typeorm';
-
-import { Category } from 'src/categories/category.entity';
-import { Message } from 'src/messages/message.entity';
 import { User } from 'src/users/user.entity';
+import { ProductCategory } from './enums/product-categories.enum';
 
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({
+    type: 'varchar',
+  })
   name: string;
 
-  @Column('text')
-  description: string;
+  @Column({
+    type: 'text',
+    nullable: true,
+  })
+  description?: string;
 
   @Column('decimal')
   price: number;
 
-  @Column()
-  imageURL: string;
+  @Column({
+    nullable: true,
+  })
+  imageURL?: string;
+
+  @Column({
+    type: 'enum',
+    enum: ProductCategory,
+    array: true, // This allows storing multiple categories
+  })
+  categories: ProductCategory[];
 
   @CreateDateColumn()
   createdAt: Date;
@@ -40,13 +51,6 @@ export class Product {
   @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
   owner: User;
 
-  @ManyToMany(() => Category, (category) => category.products)
-  @JoinTable()
-  categories: Category[];
-
   @ManyToMany(() => User, (user) => user.wishlist)
   wishlistUsers: User[];
-
-  @OneToMany(() => Message, (message) => message.product)
-  messages: Message[];
 }
