@@ -8,13 +8,7 @@ import { ActiveUserData } from '../interfaces/active-user-data.interface';
 @Injectable()
 export class GenerateTokensProvider {
   constructor(
-    /**
-     * Inject JwtService
-     */
     private readonly jwtService: JwtService,
-    /**
-     * Inject JwtConfiguration
-     */
     @Inject(jwtConfig.KEY)
     private readonly JwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}

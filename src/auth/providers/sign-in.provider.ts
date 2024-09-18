@@ -13,18 +13,11 @@ import { GenerateTokensProvider } from './generate-tokens.provider';
 @Injectable()
 export class SignInProvider {
   constructor(
-    /**
-     * Inject UserService
-     */
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
-    /**
-     * Inject HashingProvider
-     */
+
     private readonly hashingProvider: HashingProvider,
-    /**
-     * Inject GenerateTokensProvider
-     */
+
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
   public async signIn(signInDto: SignInDto) {

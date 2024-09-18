@@ -15,23 +15,14 @@ import { ActiveUserData } from '../interfaces/active-user-data.interface';
 @Injectable()
 export class RefreshTokensProvider {
   constructor(
-    /**
-     * Inject UserService
-     */
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
-    /**
-     * Inject JwtService
-     */
+
     private readonly jwtService: JwtService,
-    /**
-     * Inject JwtConfig
-     */
+
     @Inject(jwtConfig.KEY)
     private readonly JwtConfiguration: ConfigType<typeof jwtConfig>,
-    /**
-     * Inject GenerateTokensProvider
-     */
+
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
 

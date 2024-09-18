@@ -23,7 +23,7 @@ export class UsersService {
   ) {}
 
   public async createUser(createUserDto: CreateUserDto) {
-    let existingUser = undefined;
+    let existingUser: User | null = null;
 
     try {
       // Check if a user already exists with the same email
@@ -71,7 +71,7 @@ export class UsersService {
   }
 
   public async findOneById(id: number) {
-    let user: User = undefined;
+    let user: User | null = null;
 
     try {
       user = await this.usersRepository.findOneBy({
@@ -97,7 +97,7 @@ export class UsersService {
   }
 
   public async findOneByEmail(email: string) {
-    let user: User | undefined = undefined;
+    let user: User | null = null;
 
     try {
       // This will return null if the user is not found

@@ -8,19 +8,9 @@ import { RefreshTokensProvider } from './refresh-tokens.provider';
 @Injectable()
 export class AuthService {
   constructor(
-    /**
-     * Injecting UserService (circular deps)
-     */
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
-
-    /**
-     * Injecting SignInProvider
-     */
     private readonly signInProvider: SignInProvider,
-    /**
-     * Injecting RefreshTokensProvder
-     */
     private readonly refreshTokensProvder: RefreshTokensProvider,
   ) {}
 
