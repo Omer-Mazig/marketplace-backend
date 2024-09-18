@@ -38,9 +38,9 @@ export class ProductsController {
   @Post()
   public createProduct(
     @Body() createProductDto: CreateProductDto,
-    @ActiveUser() user: ActiveUserData,
+    @ActiveUser() activeUser: ActiveUserData,
   ) {
-    return this.productsService.createProduct(createProductDto, user);
+    return this.productsService.createProduct(createProductDto, activeUser);
   }
 
   @Patch()

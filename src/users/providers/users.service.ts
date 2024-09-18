@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { HashingProvider } from '../../auth/providers/hashing.provider';
-import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
 
@@ -86,9 +86,6 @@ export class UsersService {
       );
     }
 
-    /**
-     * Handle the case where the user does not exist.
-     */
     if (!user) {
       throw new BadRequestException('The user ID does not exist');
     }

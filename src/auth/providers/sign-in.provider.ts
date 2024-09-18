@@ -21,7 +21,7 @@ export class SignInProvider {
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
   public async signIn(signInDto: SignInDto) {
-    // will throw an error if user not found (see userService.findOneByEmail)
+    // will throw an error if user not found (see userService.findOneByEmailWithPassword)
     const userWithPassword = await this.userService.findOneByEmailWithPassword(
       signInDto.email,
     );
