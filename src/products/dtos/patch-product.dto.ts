@@ -7,10 +7,7 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-import { User } from 'src/users/user.entity';
 import { ProductCategory } from '../enums/product-categories.enum';
 
 export class PatchProductDto extends PartialType(CreateProductDto) {

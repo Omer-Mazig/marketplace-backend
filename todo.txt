@@ -1,0 +1,17 @@
+Requirements:
+Wishlist Product Updates and Removal Notifications: All users should be notified if a product in their wishlist is updated or removed.
+Wishlist Add Notifications: Product owners should be notified when other users add their products to their wishlist.
+Profile View Notifications: Premium users receive full notifications about who viewed their profile. Gold users get a notification without user details. Standard users do not receive profile view notifications.
+Non-logged-in Users: They can browse products but can't add products to their wishlist, chat, or add products.
+Implementation Plan (Strategy Pattern and Observer Pattern):
+Strategy Pattern for Notifications: We will use the strategy pattern to manage notifications for profile views based on user tiers.
+Notification Service: Implement methods to handle different notification scenarios (wishlist updates/removals, wishlist adds, and profile views).
+Event System: Trigger notifications using an event-driven approach (e.g., calling methods in the ProductService or UserService).
+Update Services: Modify ProductService and UserService to emit notifications when specific events occur.
+
+chat:
+1. users can chat with each other about product. (chat on product or regular messanger?)
+2. afitr implementing chat - make it so if a owner edit a product, all the wishlistUsers will get notify. (price)
+
+userTier:
+1. gold and platinum users can see who are the users that has thier products in a wishlist. standard users can only see the number of users for each product.`

@@ -18,6 +18,7 @@ export class WishlistService {
   ) {}
 
   // PUBLIC METHODS:
+
   async addToWishlist(productId: number, activeUser: ActiveUserData) {
     let user: User;
     let product: Product;
