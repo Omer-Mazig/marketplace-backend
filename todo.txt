@@ -1,5 +1,4 @@
-- test wishlist
-- check if when removing  / updating a prodduct it does also changed in the wishlists
+- build a frontend app that implemnt the server features
 - insted of profile view strategy - a product of mine add to someone wishlist strategy.
 - chat 
 - implement real notification (chat?)
