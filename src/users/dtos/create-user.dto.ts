@@ -13,13 +13,11 @@ import { UserTier } from '../enums/user-tier.enum';
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
   @MaxLength(96)
   firstName: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(3)
   @MaxLength(96)
   lastName: string;
 
@@ -39,5 +37,6 @@ export class CreateUserDto {
   password: string;
 
   @IsEnum(UserTier)
+  @IsOptional()
   userTier?: UserTier;
 }

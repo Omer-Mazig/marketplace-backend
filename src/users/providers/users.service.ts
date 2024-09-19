@@ -11,6 +11,7 @@ import { HashingProvider } from '../../auth/providers/hashing.provider';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
+import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @Injectable()
 export class UsersService {
@@ -21,6 +22,10 @@ export class UsersService {
     @Inject(forwardRef(() => HashingProvider))
     private readonly hashingProvider: HashingProvider,
   ) {}
+
+  public async getActiveUser(activeUser: ActiveUserData) {
+    return await this.findOneById(activeUser.sub);
+  }
 
   public async createUser(createUserDto: CreateUserDto) {
     let existingUser: User | null = null;
