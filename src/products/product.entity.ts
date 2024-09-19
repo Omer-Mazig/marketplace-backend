@@ -53,6 +53,6 @@ export class Product {
   @ManyToOne(() => User, (user) => user.products, { onDelete: 'CASCADE' })
   owner: User;
 
-  @ManyToMany(() => User, (user) => user.wishlist)
+  @ManyToMany(() => User, (user) => user.wishlist, { onDelete: 'CASCADE' })
   wishlistUsers: User[];
 }
