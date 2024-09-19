@@ -44,7 +44,7 @@ export class NotificationsService {
 
     // Notify each user about the product update
     for (const user of usersToNotify) {
-      await this.sendNotification(user, product);
+      await this._sendNotification(user, product, 'update');
     }
   }
 
@@ -59,30 +59,36 @@ export class NotificationsService {
 
     // Notify each user about the product deletion
     for (const user of usersToNotify) {
-      await this.sendNotification(user, product);
+      await this._sendNotification(user, product, 'delete');
     }
   }
 
-  // FIX: deleate and update are basicly the same message
-  private async sendNotification(user: User, product: Product): Promise<void> {
+  private async _sendNotification(
+    user: User,
+    product: Product,
+    action: 'update' | 'delete',
+  ): Promise<void> {
     // Implement the logic to send the notification
     // This could involve sending an email, push notification, etc.
     // For example:
-    console.log(
-      `Sending notification to user ${user.id}: Product ${product.name} has been updated. Check it out!`,
-    );
+    const actionMessage =
+      action === 'update'
+        ? `Product ${product.name} has been updated. Check it out!`
+        : `Product ${product.name} has been removed.`;
+
+    console.log(`Sending notification to user ${user.id}: ${actionMessage}`);
 
     // Example of notification payload:
     const notificationPayload = {
       userId: user.id,
-      message: `Product ${product.name} has been updated. Check it out!`,
+      message: actionMessage,
     };
 
     // Replace this with actual notification sending logic
-    await this.send(notificationPayload);
+    await this._send(notificationPayload);
   }
 
-  private async send(payload: {
+  private async _send(payload: {
     userId: number;
     message: string;
   }): Promise<void> {
