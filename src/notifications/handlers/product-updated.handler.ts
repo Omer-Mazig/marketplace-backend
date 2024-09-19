@@ -1,16 +1,15 @@
-import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
-import { ProductUpdatedEvent } from '../events/product-updated.event';
+// src/notifications/handlers/product-update.handler.ts
 
-@EventsHandler(ProductUpdatedEvent)
-export class ProductUpdatedHandler
-  implements IEventHandler<ProductUpdatedEvent>
-{
-  handle(event: ProductUpdatedEvent) {
-    // Notify all users with the product in their wishlist
-    event.product.wishlistUsers.forEach((user) => {
-      console.log(
-        `Notifying user ${user.id} about product ${event.product.id} update`,
-      );
-    });
+import { EventsHandler, IEventHandler } from '@nestjs/cqrs'; // Adjust to your event bus library
+import { NotificationsService } from '../providers/notifications.service';
+import { ProductUpdateEvent } from '../events/product-updated.event';
+
+@EventsHandler(ProductUpdateEvent)
+export class ProductUpdateHandler implements IEventHandler<ProductUpdateEvent> {
+  constructor(private readonly notificationsService: NotificationsService) {}
+
+  async handle(event: ProductUpdateEvent): Promise<void> {
+    const { product, affectedUsers } = event;
+    this.notificationsService.notifyProductUpdate(affectedUsers, product);
   }
 }

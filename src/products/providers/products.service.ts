@@ -14,12 +14,16 @@ import { UserTier } from 'src/users/enums/user-tier.enum';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
+import { EventBus } from '@nestjs/cqrs';
+import { ProductDeleteEvent } from 'src/notifications/events/product-delete.event';
+import { ProductUpdateEvent } from 'src/notifications/events/product-updated.event';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
+    private readonly eventBus: EventBus,
     private readonly usersService: UsersService,
   ) {}
 
@@ -108,7 +112,16 @@ export class ProductsService {
     product.categories = patchProductDto.categories ?? product.categories;
 
     try {
-      return await this.productsRepository.save(product);
+      const updatedProduct = await this.productsRepository.save(product);
+
+      const affectedUsers = updatedProduct.wishlistUsers;
+
+      // Emit the event
+      this.eventBus.publish(
+        new ProductUpdateEvent(updatedProduct, affectedUsers),
+      );
+
+      return updatedProduct;
     } catch (error) {
       console.error('[ProductsService - patchProduct]', error);
       throw new RequestTimeoutException(
@@ -126,6 +139,11 @@ export class ProductsService {
 
     try {
       await this.productsRepository.delete(productId);
+
+      const affectedUsers = product.wishlistUsers;
+
+      // Emit product delete event
+      this.eventBus.publish(new ProductDeleteEvent(product, affectedUsers));
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);
       throw new RequestTimeoutException(
