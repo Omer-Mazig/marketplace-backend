@@ -15,8 +15,8 @@ import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
 import { EventBus } from '@nestjs/cqrs';
-import { ProductDeleteEvent } from 'src/notifications/events/product-delete.event';
-import { ProductUpdateEvent } from 'src/notifications/events/product-updated.event';
+import { ProductUpdatedEvent } from 'src/notifications/events/product-updated.event';
+import { ProductDeletedEvent } from 'src/notifications/events/product-deleted.event';
 
 @Injectable()
 export class ProductsService {
@@ -118,7 +118,7 @@ export class ProductsService {
 
       // Emit the event
       this.eventBus.publish(
-        new ProductUpdateEvent(updatedProduct, affectedUsers),
+        new ProductUpdatedEvent(updatedProduct, affectedUsers),
       );
 
       return updatedProduct;
@@ -143,7 +143,7 @@ export class ProductsService {
       const affectedUsers = product.wishlistUsers;
 
       // Emit product delete event
-      this.eventBus.publish(new ProductDeleteEvent(product, affectedUsers));
+      this.eventBus.publish(new ProductDeletedEvent(product, affectedUsers));
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);
       throw new RequestTimeoutException(
