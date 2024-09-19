@@ -50,6 +50,10 @@ export class User {
   products: Product[];
 
   @ManyToMany(() => Product, (product) => product.wishlistUsers)
-  @JoinTable()
+  @JoinTable({
+    name: 'user_wishlist_product',
+    joinColumn: { name: 'userId' },
+    inverseJoinColumn: { name: 'productId' },
+  })
   wishlist: Product[];
 }

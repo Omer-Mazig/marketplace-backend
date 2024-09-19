@@ -1,4 +1,5 @@
-1. check if when removing  / updating a prodduct it does also changed in the wishlists
-2. insted of profile view strategy - a product of mine add to someone wishlist strategy.
-3. chat 
-4. implement real notification (chat?)
+- test wishlist
+- check if when removing  / updating a prodduct it does also changed in the wishlists
+- insted of profile view strategy - a product of mine add to someone wishlist strategy.
+- chat 
+- implement real notification (chat?)
