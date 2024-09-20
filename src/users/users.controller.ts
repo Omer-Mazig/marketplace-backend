@@ -3,6 +3,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
@@ -20,7 +21,15 @@ export class UsersController {
   @Get('active')
   @UseInterceptors(ClassSerializerInterceptor)
   public async getActiveUser(@ActiveUser() activeUser: ActiveUserData) {
+    console.log(activeUser);
+
     return this.usersService.getActiveUser(activeUser);
+  }
+
+  @Get('user-data/:id')
+  @UseInterceptors(ClassSerializerInterceptor)
+  public async getActiveUserData(@Param('id') id: number) {
+    return this.usersService.getActiveUserData(id);
   }
 
   @Post()

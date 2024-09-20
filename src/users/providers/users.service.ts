@@ -27,6 +27,33 @@ export class UsersService {
     return await this.findOneById(activeUser.sub);
   }
 
+  public async getActiveUserData(id: number) {
+    let user: User | null = null;
+
+    try {
+      user = await this.usersRepository.findOne({
+        where: { id },
+        relations: {
+          products: true,
+          wishlist: true,
+        },
+      });
+    } catch (error) {
+      throw new RequestTimeoutException(
+        'Unable to process your request at the moment please try later',
+        {
+          description: 'Error connecting to the database',
+        },
+      );
+    }
+
+    if (!user) {
+      throw new BadRequestException('The user ID does not exist');
+    }
+
+    return user;
+  }
+
   public async createUser(createUserDto: CreateUserDto) {
     let existingUser: User | null = null;
 
