@@ -37,6 +37,6 @@ export class CreateUserDto {
   password: string;
 
   @IsEnum(UserTier)
-  @IsOptional()
-  userTier?: UserTier;
+  @IsNotEmpty()
+  userTier: UserTier;
 }
