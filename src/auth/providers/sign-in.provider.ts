@@ -14,7 +14,7 @@ import { GenerateTokensProvider } from './generate-tokens.provider';
 export class SignInProvider {
   constructor(
     @Inject(forwardRef(() => UsersService))
-    private readonly userService: UsersService,
+    private readonly usersService: UsersService,
 
     private readonly hashingProvider: HashingProvider,
 
@@ -22,7 +22,7 @@ export class SignInProvider {
   ) {}
   public async signIn(signInDto: SignInDto) {
     // will throw an error if user not found (see userService.findOneByEmailWithPassword)
-    const userWithPassword = await this.userService.findOneByEmailWithPassword(
+    const userWithPassword = await this.usersService.findOneByEmailWithPassword(
       signInDto.email,
     );
 
