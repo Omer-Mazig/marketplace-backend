@@ -13,7 +13,7 @@ export class AuthService {
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
     private readonly signInProvider: SignInProvider,
-    private readonly refreshTokensProvder: RefreshTokensProvider,
+    private readonly refreshTokensProvider: RefreshTokensProvider,
   ) {}
 
   public async signIn(signInDto: SignInDto, res: Response) {
@@ -33,6 +33,6 @@ export class AuthService {
   }
 
   public async refreshTokens(refreshTokenDto: RefreshTokenDto) {
-    return await this.refreshTokensProvder.refreshTokens(refreshTokenDto);
+    return await this.refreshTokensProvider.refreshTokens(refreshTokenDto);
   }
 }

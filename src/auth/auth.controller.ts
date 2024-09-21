@@ -28,9 +28,12 @@ export class AuthController {
     res.json({ accessToken });
   }
 
+  @Auth(AuthType.None)
   @Post('refresh-token')
   public async refreshAccessToken(@Req() req: Request, @Res() res: Response) {
     const refreshToken = req.cookies['refreshToken'];
+
+    console.log('refreshAccessToken --- ', refreshToken);
 
     if (!refreshToken) {
       throw new UnauthorizedException('No refresh token found');
@@ -38,7 +41,7 @@ export class AuthController {
 
     try {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        await this.authService.refreshTokens(refreshToken); // ?
+        await this.authService.refreshTokens({ refreshToken }); // ?
 
       res.cookie('refreshToken', newRefreshToken, {
         httpOnly: true,
