@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/users/user.entity';
-import { ProductCategory } from '../enums/product-categories.enum';
+import { ProductCategory } from 'shared/src/product-categories.enum';
 
 export class CreateProductDto {
   @IsString()

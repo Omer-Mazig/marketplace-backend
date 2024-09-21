@@ -9,7 +9,7 @@ import {
   ManyToMany,
 } from 'typeorm';
 import { User } from 'src/users/user.entity';
-import { ProductCategory } from './enums/product-categories.enum';
+import { ProductCategory } from 'shared/src/product-categories.enum';
 
 @Entity()
 export class Product {

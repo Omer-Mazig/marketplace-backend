@@ -8,7 +8,7 @@ import {
   IsPositive,
   IsString,
 } from 'class-validator';
-import { ProductCategory } from '../enums/product-categories.enum';
+import { ProductCategory } from 'shared/src/product-categories.enum';
 
 export class PatchProductDto extends PartialType(CreateProductDto) {
   // Explicitly make fields optional if they should not be required in patch
