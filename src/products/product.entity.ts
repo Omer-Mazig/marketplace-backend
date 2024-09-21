@@ -1,4 +1,3 @@
-// src/products/product.entity.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -37,6 +36,12 @@ export class Product {
   price: number;
 
   @Column({
+    type: 'int',
+    default: 1,
+  })
+  stock: number;
+
+  @Column({
     nullable: true,
   })
   imageURL?: string;
@@ -44,9 +49,27 @@ export class Product {
   @Column({
     type: 'enum',
     enum: ProductCategory,
-    array: true, // This allows storing multiple categories
+    array: true,
   })
   categories: ProductCategory[];
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  location?: string;
+
+  @Column({
+    type: 'boolean',
+    default: false,
+  })
+  isNegotiable: boolean;
+
+  @Column({
+    type: 'int',
+    default: 0,
+  })
+  viewCount: number;
 
   @CreateDateColumn()
   createdAt: Date;

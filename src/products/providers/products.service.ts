@@ -108,6 +108,7 @@ export class ProductsService {
     product.name = patchProductDto.name ?? product.name;
     product.description = patchProductDto.description ?? product.description;
     product.price = patchProductDto.price ?? product.price;
+    product.stock = patchProductDto.stock ?? product.stock;
     product.imageURL = patchProductDto.imageURL ?? product.imageURL;
     product.categories = patchProductDto.categories ?? product.categories;
 

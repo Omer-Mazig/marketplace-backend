@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateProductDto } from './create-product.dto';
 import {
   IsArray,
+  IsBoolean,
   IsEnum,
   IsNumber,
   IsOptional,
@@ -11,7 +12,6 @@ import {
 import { ProductCategory } from '../enums/product-category.enum';
 
 export class PatchProductDto extends PartialType(CreateProductDto) {
-  // Explicitly make fields optional if they should not be required in patch
   @IsOptional()
   @IsString()
   name?: string;
@@ -26,6 +26,11 @@ export class PatchProductDto extends PartialType(CreateProductDto) {
   price?: number;
 
   @IsOptional()
+  @IsNumber()
+  @IsPositive()
+  stock?: number;
+
+  @IsOptional()
   @IsString()
   imageURL?: string;
 
@@ -35,14 +40,15 @@ export class PatchProductDto extends PartialType(CreateProductDto) {
   @IsEnum(ProductCategory, { each: true })
   categories?: ProductCategory[];
 
-  //   @IsOptional()
-  //   @IsArray()
-  //   @ValidateNested({ each: true })
-  //   @Type(() => User)
-  //   wishlistUsers?: User[];
+  @IsOptional()
+  @IsString()
+  location?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isNegotiable?: boolean;
+
+  @IsOptional()
+  @IsNumber()
+  viewCount?: number;
 }
-
-// import { PartialType } from '@nestjs/mapped-types';
-// import { CreateProductDto } from './create-product.dto';
-
-// export class PatchProductDto extends PartialType(CreateProductDto) {}

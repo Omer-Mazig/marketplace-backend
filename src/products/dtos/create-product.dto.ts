@@ -7,6 +7,7 @@ import {
   ValidateNested,
   IsNotEmpty,
   IsPositive,
+  IsBoolean,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/users/user.entity';
@@ -26,20 +27,30 @@ export class CreateProductDto {
   @IsPositive()
   price: number;
 
+  @IsNumber()
+  @IsNotEmpty()
+  @IsPositive()
+  stock: number;
+
   @IsOptional()
   @IsString()
   imageURL?: string;
-
-  @ValidateNested()
-  @Type(() => User)
-  owner: User;
 
   @IsArray()
   @IsEnum(ProductCategory, { each: true })
   categories: ProductCategory[];
 
-  // @IsArray()
-  // @ValidateNested({ each: true })
-  // @Type(() => User)
-  // wishlistUsers: User[];
+  @IsOptional()
+  @IsString()
+  location?: string;
+
+  @IsBoolean()
+  isNegotiable: boolean;
+
+  @IsNumber()
+  viewCount: number;
+
+  @ValidateNested()
+  @Type(() => User)
+  owner: User;
 }
