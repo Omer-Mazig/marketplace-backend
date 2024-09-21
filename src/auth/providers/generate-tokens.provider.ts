@@ -13,7 +13,33 @@ export class GenerateTokensProvider {
     private readonly JwtConfiguration: ConfigType<typeof jwtConfig>,
   ) {}
 
-  public async signToken<T>(
+  public async generateTokens(user: User) {
+    const [accessToken, refreshToken] = await Promise.all([
+      // Access Token
+      this._signToken<Partial<ActiveUserData>>(
+        user.id,
+        this.JwtConfiguration.accessTokenTtl,
+        'access', // Specify token type as 'access'
+        {
+          email: user.email,
+        },
+      ),
+
+      // Refresh Token
+      this._signToken(
+        user.id,
+        this.JwtConfiguration.refreshTokenTtl,
+        'refresh',
+      ), // Specify token type as 'refresh'
+    ]);
+
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+
+  private async _signToken<T>(
     userId: number,
     expiresIn: number,
     type: 'access' | 'refresh', // Add type parameter
@@ -32,27 +58,5 @@ export class GenerateTokensProvider {
         expiresIn: expiresIn,
       },
     );
-  }
-
-  public async generateTokens(user: User) {
-    const [accessToken, refreshToken] = await Promise.all([
-      // Access Token
-      this.signToken<Partial<ActiveUserData>>(
-        user.id,
-        this.JwtConfiguration.accessTokenTtl,
-        'access', // Specify token type as 'access'
-        {
-          email: user.email,
-        },
-      ),
-
-      // Refresh Token
-      this.signToken(user.id, this.JwtConfiguration.refreshTokenTtl, 'refresh'), // Specify token type as 'refresh'
-    ]);
-
-    return {
-      accessToken,
-      refreshToken,
-    };
   }
 }

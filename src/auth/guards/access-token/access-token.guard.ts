@@ -28,6 +28,7 @@ export class AccessTokenGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+
     const token = this._extractRequestFromHeader(request);
 
     if (!token) {

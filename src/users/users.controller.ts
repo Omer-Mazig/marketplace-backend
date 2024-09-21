@@ -21,8 +21,6 @@ export class UsersController {
   @Get('active')
   @UseInterceptors(ClassSerializerInterceptor)
   public async getActiveUser(@ActiveUser() activeUser: ActiveUserData) {
-    console.log(activeUser);
-
     return this.usersService.getActiveUser(activeUser);
   }
 
