@@ -26,10 +26,10 @@ export class UsersController {
     return this.usersService.getActiveUser(activeUser);
   }
 
-  @Get('user-data/:id')
+  @Get('user-data')
   @UseInterceptors(ClassSerializerInterceptor)
-  public async getActiveUserData(@Param('id') id: number) {
-    return this.usersService.getActiveUserData(id);
+  public async getActiveUserData(@ActiveUser() activeUser: ActiveUserData) {
+    return this.usersService.getActiveUserData(activeUser.sub);
   }
 
   @Post()

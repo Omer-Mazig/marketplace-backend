@@ -29,6 +29,10 @@ export class Product {
 
   @Column({
     type: 'decimal',
+    transformer: {
+      to: (value: number) => value, // When saving to the database
+      from: (value: string) => parseFloat(value), // When reading from the database
+    },
   })
   price: number;
 
