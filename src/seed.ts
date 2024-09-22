@@ -67,6 +67,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'New York',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Smartphone',
@@ -76,6 +77,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'San Francisco',
       isNegotiable: false,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Sports Watch',
@@ -85,6 +87,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Miami',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Gaming Chair',
@@ -94,6 +97,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Los Angeles',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Headphones',
@@ -103,6 +107,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Seattle',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Tennis Racket',
@@ -112,6 +117,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Chicago',
       isNegotiable: true,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Mountain Bike',
@@ -121,6 +127,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Denver',
       isNegotiable: true,
       owner: users[2],
+      viewCount: 0,
     },
     {
       name: 'Guitar',
@@ -130,6 +137,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Austin',
       isNegotiable: false,
       owner: users[2],
+      viewCount: 0,
     },
     {
       name: 'Running Shoes',
@@ -139,6 +147,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Boston',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Office Chair',
@@ -148,6 +157,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Dallas',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Gaming Console',
@@ -157,6 +167,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Houston',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Leather Jacket',
@@ -166,6 +177,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Las Vegas',
       isNegotiable: true,
       owner: users[2],
+      viewCount: 0,
     },
     {
       name: 'Yoga Mat',
@@ -175,6 +187,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Portland',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Camera',
@@ -184,6 +197,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Nashville',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Electric Scooter',
@@ -193,6 +207,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'San Diego',
       isNegotiable: true,
       owner: users[2],
+      viewCount: 0,
     },
     {
       name: 'Cookware Set',
@@ -202,6 +217,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Phoenix',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Fitness Tracker',
@@ -211,6 +227,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Orlando',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
     {
       name: 'Office Desk',
@@ -220,6 +237,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Tampa',
       isNegotiable: false,
       owner: users[2],
+      viewCount: 0,
     },
     {
       name: 'Bluetooth Speaker',
@@ -229,6 +247,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Salt Lake City',
       isNegotiable: true,
       owner: users[0],
+      viewCount: 0,
     },
     {
       name: 'Book Collection',
@@ -238,6 +257,7 @@ const seed = async (dataSource: DataSource) => {
       location: 'Philadelphia',
       isNegotiable: false,
       owner: users[1],
+      viewCount: 0,
     },
   ];
 
