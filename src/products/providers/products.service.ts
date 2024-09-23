@@ -27,10 +27,19 @@ export class ProductsService {
     private readonly usersService: UsersService,
   ) {}
 
-  public async getProducts() {
+  // PUBLIC METHODS:
+  public async getAllProducts() {
     try {
       return await this.productsRepository.find({
-        relations: ['owner'],
+        relations: ['owner'], // Load the owner relation
+        select: {
+          owner: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
       });
     } catch (error) {
       console.error('[ProductsService - getProducts]', error);
@@ -42,8 +51,6 @@ export class ProductsService {
       );
     }
   }
-
-  // PUBLIC METHODS:
   public async getProductById(
     productId: number,
     relations: string[] = ['owner'],

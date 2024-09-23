@@ -21,8 +21,8 @@ export class ProductsController {
 
   @Get()
   @Auth(AuthType.None)
-  public getProducts() {
-    return this.productsService.getProducts();
+  public getAllProducts() {
+    return this.productsService.getAllProducts();
   }
 
   @Get(':productId')

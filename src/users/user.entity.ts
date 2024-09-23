@@ -12,6 +12,7 @@ import { Product } from 'src/products/product.entity';
 import { UserTier } from './enums/user-tier.enum';
 import { Exclude } from 'class-transformer';
 
+// TODO: add imageURL, chnage the naming in client from imageUrl
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
