@@ -19,6 +19,9 @@ export class WishlistService {
   async addToWishlist(productId: number, activeUser: ActiveUserData) {
     const queryRunner = this.dataSource.createQueryRunner();
 
+    // for test optemistic update
+    // throw new Error();
+
     try {
       await queryRunner.connect();
       await queryRunner.startTransaction();
@@ -69,6 +72,9 @@ export class WishlistService {
 
   async removeFromWishlist(productId: number, activeUser: ActiveUserData) {
     const queryRunner = this.dataSource.createQueryRunner();
+
+    // for test optemistic update
+    throw new Error();
 
     try {
       await queryRunner.connect();
