@@ -74,7 +74,7 @@ export class WishlistService {
     const queryRunner = this.dataSource.createQueryRunner();
 
     // for test optemistic update
-    throw new Error();
+    // throw new Error();
 
     try {
       await queryRunner.connect();
