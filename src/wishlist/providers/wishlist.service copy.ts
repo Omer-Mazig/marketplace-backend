@@ -16,7 +16,7 @@ export class WishlistService {
     private readonly dataSource: DataSource,
   ) {}
 
-  // PUBLIC METHODS:
+  // PUBLIC METHODS
 
   async addToWishlist(productId: number, activeUser: ActiveUserData) {
     let user: User;
