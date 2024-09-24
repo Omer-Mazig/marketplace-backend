@@ -1,7 +1,7 @@
 import { Controller, Post, Delete, Param } from '@nestjs/common';
-import { WishlistService } from './providers/wishlist.service';
 import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
+import { WishlistService } from './providers/wishlist.service';
 
 @Controller('wishlist')
 export class WishlistController {
