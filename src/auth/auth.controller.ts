@@ -12,7 +12,6 @@ import { SignInDto } from './dtos/signin.dto';
 import { AuthService } from './providers/auth.service';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
-import { RefreshTokenDto } from './dtos/refresh-token.dto';
 
 import { Response, Request } from 'express'; // Use Request and Response from express
 
@@ -26,6 +25,13 @@ export class AuthController {
   public async signIn(@Body() signInDto: SignInDto, @Res() res: Response) {
     const { accessToken } = await this.authService.signIn(signInDto, res);
     res.json({ accessToken });
+  }
+
+  @Post('sign-out')
+  @Auth(AuthType.None)
+  public async signOut(@Req() req: Request, @Res() res: Response) {
+    res.clearCookie('refreshToken');
+    return res.json({ message: 'Logging out' });
   }
 
   @Auth(AuthType.None)
