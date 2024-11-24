@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -37,10 +38,20 @@ export class WishlistService {
 
       const product = await queryRunner.manager.findOne(Product, {
         where: { id: productId },
+        relations: ['owner'],
       });
 
       if (!product) {
         throw new NotFoundException('Product not found');
+      }
+
+      // Check if the user is trying to add their own product
+      console.log('product', product);
+
+      if (product.owner.id === activeUser.sub) {
+        throw new BadRequestException(
+          'You cannot add your own product to the wishlist',
+        );
       }
 
       // Check if product is already in the wishlist
