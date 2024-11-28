@@ -47,9 +47,6 @@ export class CreateProductDto {
   @IsBoolean()
   isNegotiable: boolean;
 
-  @IsNumber()
-  viewCount: number;
-
   @ValidateNested()
   @Type(() => User)
   owner: User;
