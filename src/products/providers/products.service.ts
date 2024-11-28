@@ -151,7 +151,7 @@ export class ProductsService {
       const affectedUsers = product.wishlistUsers;
 
       // Emit product delete event
-      this.eventBus.publish(new ProductDeletedEvent(product, affectedUsers));
+      // this.eventBus.publish(new ProductDeletedEvent(product, affectedUsers));
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);
       throw new RequestTimeoutException(
