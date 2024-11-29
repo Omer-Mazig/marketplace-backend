@@ -15,8 +15,6 @@ import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
 import { EventBus } from '@nestjs/cqrs';
-import { ProductUpdatedEvent } from 'src/notifications/events/product-updated.event';
-import { ProductDeletedEvent } from 'src/notifications/events/product-deleted.event';
 
 @Injectable()
 export class ProductsService {
@@ -121,13 +119,6 @@ export class ProductsService {
 
     try {
       const updatedProduct = await this.productsRepository.save(product);
-
-      const affectedUsers = updatedProduct.wishlistUsers;
-
-      // Emit the event
-      this.eventBus.publish(
-        new ProductUpdatedEvent(updatedProduct, affectedUsers),
-      );
 
       return updatedProduct;
     } catch (error) {
