@@ -11,7 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { GenerateTokensProvider } from './providers/generate-tokens.provider';
 import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
 
-// LOOK AT APP MODULE CONFIG. WE MIGHT REMOE SOME CONFIG HERE
+// TODO: LOOK AT APP MODULE CONFIG. WE MIGHT REMOE SOME CONFIG HERE
 
 @Module({
   controllers: [AuthController],
