@@ -13,7 +13,7 @@ import { AuthService } from './providers/auth.service';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
 
-import { Response, Request } from 'express'; // Use Request and Response from express
+import { Response, Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
