@@ -4,7 +4,6 @@ import { UsersService } from 'src/users/providers/users.service';
 import { SignInProvider } from './sign-in.provider';
 import { RefreshTokenDto } from '../dtos/refresh-token.dto';
 import { RefreshTokensProvider } from './refresh-tokens.provider';
-
 import { Response } from 'express';
 
 @Injectable()
