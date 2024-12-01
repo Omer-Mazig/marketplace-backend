@@ -15,13 +15,11 @@ export class SignInProvider {
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly usersService: UsersService,
-
     private readonly hashingProvider: HashingProvider,
-
     private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
+
   public async signIn(signInDto: SignInDto) {
-    // will throw an error if user not found (see userService.findOneByEmailWithPassword)
     const userWithPassword = await this.usersService.findOneByEmailWithPassword(
       signInDto.email,
     );
