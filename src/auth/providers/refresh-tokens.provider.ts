@@ -17,13 +17,10 @@ export class RefreshTokensProvider {
   constructor(
     @Inject(forwardRef(() => UsersService))
     private readonly userService: UsersService,
-
     private readonly jwtService: JwtService,
-
+    private readonly generateTokensProvider: GenerateTokensProvider,
     @Inject(jwtConfig.KEY)
     private readonly JwtConfiguration: ConfigType<typeof jwtConfig>,
-
-    private readonly generateTokensProvider: GenerateTokensProvider,
   ) {}
 
   // TODO: handle error better
