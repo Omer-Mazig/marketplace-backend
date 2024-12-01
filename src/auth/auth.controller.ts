@@ -54,7 +54,6 @@ export class AuthController {
         maxAge: 24 * 60 * 60 * 1000, // 24 hours to match JWT_REFRESH_TOKEN_TTL
       });
 
-      // Return the new access token
       return res.json({ accessToken: newAccessToken });
     } catch (error) {
       throw new UnauthorizedException('Invalid refresh token');
