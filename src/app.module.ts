@@ -23,6 +23,7 @@ const ENV = process.env.NODE_ENV;
     UsersModule,
     ProductsModule,
     AuthModule,
+    WishlistModule,
 
     ConfigModule.forRoot({
       isGlobal: true,
@@ -55,8 +56,6 @@ const ENV = process.env.NODE_ENV;
     // by the jwtConfig. This allows us to configure JWT options like secret
     // and expiration based on environment variables.
     JwtModule.registerAsync(jwtConfig.asProvider()),
-
-    WishlistModule,
   ],
   providers: [
     {
