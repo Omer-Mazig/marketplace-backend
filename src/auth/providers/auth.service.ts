@@ -5,7 +5,7 @@ import { SignInProvider } from './sign-in.provider';
 import { RefreshTokenDto } from '../dtos/refresh-token.dto';
 import { RefreshTokensProvider } from './refresh-tokens.provider';
 
-import { Response } from 'express'; // Import Response type from express
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +28,6 @@ export class AuthService {
       maxAge: 24 * 60 * 60 * 1000, // 24 hours to match JWT_REFRESH_TOKEN_TTL
     });
 
-    // Send the access token in the response body
     return { accessToken };
   }
 
