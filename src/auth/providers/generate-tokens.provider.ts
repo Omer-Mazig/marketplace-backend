@@ -42,13 +42,13 @@ export class GenerateTokensProvider {
   private async _signToken<T>(
     userId: number,
     expiresIn: number,
-    type: 'access' | 'refresh', // Add type parameter
+    type: 'access' | 'refresh',
     payload?: T,
   ) {
     return await this.jwtService.signAsync(
       {
         sub: userId,
-        type, // Include the token type in the payload
+        type,
         ...payload,
       },
       {
