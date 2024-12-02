@@ -43,6 +43,7 @@ export class Product {
 
   @Column({
     nullable: true,
+    default: null,
   })
   imageURL?: string;
 
@@ -56,6 +57,7 @@ export class Product {
   @Column({
     type: 'varchar',
     nullable: true,
+    default: null,
   })
   location?: string;
 
