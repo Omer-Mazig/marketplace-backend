@@ -174,13 +174,15 @@ export class ProductsService {
     });
 
     if (userTier === UserTier.STANDARD && ownerProductsCount >= 1) {
-      throw new BadRequestException(
-        'STANDARD users can only have one product.',
-      );
+      throw new BadRequestException({
+        message: 'STANDARD users can only have one product.',
+        redirectToUpgradePlan: true,
+      });
     } else if (userTier === UserTier.GOLD && ownerProductsCount >= 5) {
-      throw new BadRequestException(
-        'GOLD users can only have up to five products.',
-      );
+      throw new BadRequestException({
+        message: 'GOLD users can only have up to five products.',
+        redirectToUpgradePlan: true,
+      });
     }
   }
 }
