@@ -49,15 +49,12 @@ export class ProductsService {
       );
     }
   }
-  public async getProductById(
-    productId: number,
-    relations: string[] = ['owner'],
-  ) {
+  public async getProductById(productId: number) {
     let product: Product | null = null;
     try {
       product = await this.productsRepository.findOne({
         where: { id: productId },
-        relations,
+        relations: ['owner', 'wishlistUsers'],
       });
     } catch (error) {
       console.error('[ProductsService - getProductById]', error);
