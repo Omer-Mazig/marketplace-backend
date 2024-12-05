@@ -13,6 +13,7 @@ import { Repository } from 'typeorm';
 import { User } from '../user.entity';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
+// TODO: decide waht to use: findOne or findOneBy
 @Injectable()
 export class UsersService {
   constructor(
@@ -129,7 +130,6 @@ export class UsersService {
     let user: User | null = null;
 
     try {
-      // This will return null if the user is not found
       user = await this.usersRepository.findOneBy({
         email: email,
       });

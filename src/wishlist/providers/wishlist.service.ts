@@ -46,8 +46,6 @@ export class WishlistService {
       }
 
       // Check if the user is trying to add their own product
-      console.log('product', product);
-
       if (product.owner.id === activeUser.sub) {
         throw new BadRequestException(
           'You cannot add your own product to the wishlist',

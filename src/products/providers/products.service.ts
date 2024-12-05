@@ -29,7 +29,7 @@ export class ProductsService {
   public async getAllProducts() {
     try {
       return await this.productsRepository.find({
-        relations: ['owner', 'wishlistUsers'], // Load the owner relation
+        relations: ['owner', 'wishlistUsers'],
         select: {
           owner: {
             id: true,
