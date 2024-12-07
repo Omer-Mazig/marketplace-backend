@@ -18,4 +18,9 @@ export default Joi.object({
   JWT_REFRESH_TOKEN_TTL: Joi.number().required(),
 
   API_VERSION: Joi.string().required(),
+
+  CLOUDINARY_CLOUD_NAME: Joi.string().required(),
+  CLOUDINARY_API_KEY: Joi.string().required(),
+  CLOUDINARY_API_SECRET: Joi.string().required(),
+  CLOUDINARY_UPLOAD_FOLDER: Joi.string().required(),
 });
