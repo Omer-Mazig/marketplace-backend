@@ -7,6 +7,7 @@ import { UsersService } from 'src/users/providers/users.service';
 import { User } from 'src/users/user.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { CommandBus, EventBus, UnhandledExceptionBus } from '@nestjs/cqrs';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   controllers: [ProductsController],
@@ -17,6 +18,10 @@ import { CommandBus, EventBus, UnhandledExceptionBus } from '@nestjs/cqrs';
     CommandBus,
     UnhandledExceptionBus,
   ],
-  imports: [TypeOrmModule.forFeature([Product, User]), AuthModule],
+  imports: [
+    TypeOrmModule.forFeature([Product, User]),
+    AuthModule,
+    NotificationsModule,
+  ],
 })
 export class ProductsModule {}
