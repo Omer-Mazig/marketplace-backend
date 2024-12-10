@@ -15,14 +15,15 @@ import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
 import { EventBus } from '@nestjs/cqrs';
+import { NotificationsService } from 'src/notifications/providers/notifications.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
-    private readonly eventBus: EventBus,
     private readonly usersService: UsersService,
+    private notificationsService: NotificationsService,
   ) {}
 
   // PUBLIC METHODS:
@@ -138,8 +139,16 @@ export class ProductsService {
 
       const affectedUsers = product.wishlistUsers;
 
-      // Emit product delete event
-      // this.eventBus.publish(new ProductDeletedEvent(product, affectedUsers));
+      affectedUsers.forEach(async (wishlistUser) => {
+        const message = `The product ${product.name} has been removed by its owner.`;
+        await this.notificationsService.createNotification(
+          wishlistUser.id,
+          message,
+          productId,
+          activeUser.sub,
+          'remove',
+        );
+      });
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);
       throw new RequestTimeoutException(
