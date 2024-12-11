@@ -135,8 +135,6 @@ export class ProductsService {
     this._checkOwnership(product, activeUser.sub);
 
     try {
-      await this.productsRepository.delete(productId);
-
       const affectedUsers = product.wishlistUsers;
 
       affectedUsers.forEach(async (wishlistUser) => {
@@ -149,6 +147,8 @@ export class ProductsService {
           'remove',
         );
       });
+
+      await this.productsRepository.delete(productId);
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);
       throw new RequestTimeoutException(
