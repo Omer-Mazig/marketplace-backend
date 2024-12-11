@@ -6,7 +6,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ArrayContains, Repository } from 'typeorm';
 
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { Product } from '../product.entity';
@@ -14,7 +14,6 @@ import { UserTier } from 'src/users/enums/user-tier.enum';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
-import { EventBus } from '@nestjs/cqrs';
 
 @Injectable()
 export class ProductsService {
@@ -25,7 +24,9 @@ export class ProductsService {
   ) {}
 
   // PUBLIC METHODS:
-  public async find() {
+  public async find({ category }: { category: string }) {
+    const categoryValue = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize the first letter
+
     try {
       return await this.productsRepository.find({
         relations: ['owner', 'wishlistUsers'],
@@ -36,6 +37,9 @@ export class ProductsService {
             firstName: true,
             lastName: true,
           },
+        },
+        where: {
+          categories: ArrayContains([categoryValue]), // If categories is an array
         },
       });
     } catch (error) {
@@ -48,6 +52,7 @@ export class ProductsService {
       );
     }
   }
+
   public async getProductById(productId: number) {
     let product: Product | null = null;
     try {

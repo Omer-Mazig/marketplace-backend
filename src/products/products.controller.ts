@@ -22,9 +22,7 @@ export class ProductsController {
   @Get('category/:category')
   @Auth(AuthType.None)
   public getProductsByCategory(@Param('category') category: string) {
-    console.log(category);
-
-    return this.productsService.find();
+    return this.productsService.find({ category });
   }
 
   @Get(':productId')
