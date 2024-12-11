@@ -5,6 +5,8 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
+import { ActiveUser } from 'src/auth/decorators/active-user.decorator';
+import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @WebSocketGateway({
   cors: {
@@ -23,12 +25,14 @@ export class NotificationsGateway
   // Notify a user by sending them a message
   notifyUser(userId: number, message: string) {
     const socketId = this.activeUsers.get(userId);
-    // console.log('socketId', socketId);
-    // console.log('userId', userId);
-    // console.log('message', message);
+    console.log('userId', userId);
+    console.log('message', message);
+    console.log('socketId', socketId);
 
     if (socketId) {
       const client = this.server.sockets.sockets.get(socketId);
+      console.log('client', client);
+
       client?.emit('notification', { message });
     }
   }

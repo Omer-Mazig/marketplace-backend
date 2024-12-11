@@ -135,18 +135,18 @@ export class ProductsService {
     this._checkOwnership(product, activeUser.sub);
 
     try {
-      const affectedUsers = product.wishlistUsers;
+      // const affectedUsers = product.wishlistUsers;
 
-      affectedUsers.forEach(async (wishlistUser) => {
-        const message = `The product ${product.name} has been removed by its owner.`;
-        await this.notificationsService.createNotification(
-          wishlistUser.id,
-          message,
-          productId,
-          activeUser.sub,
-          'remove',
-        );
-      });
+      // affectedUsers.forEach(async (wishlistUser) => {
+      //   const message = `The product ${product.name} has been removed by its owner.`;
+      //   await this.notificationsService.createNotification(
+      //     wishlistUser.id,
+      //     message,
+      //     productId,
+      //     activeUser.sub,
+      //     'remove',
+      //   );
+      // });
 
       await this.productsRepository.delete(productId);
     } catch (error) {

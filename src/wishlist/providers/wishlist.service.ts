@@ -67,15 +67,14 @@ export class WishlistService {
         product.wishlistUsers?.push(user);
       }
 
-      const message = `${user.id} added your product ${product.name} to their wishlist.`;
-      // Notify the product owner
-      await this.notificationsService.createNotification(
-        product.owner.id,
-        message,
-        productId,
-        user.id,
-        'add',
-      );
+      // const message = `${user.id} added your product ${product.name} to their wishlist.`;
+      // await this.notificationsService.createNotification(
+      //   product.owner.id,
+      //   message,
+      //   productId,
+      //   user.id,
+      //   'add',
+      // );
 
       // Save both entities
       await queryRunner.manager.save(User, user);
