@@ -15,7 +15,6 @@ import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
 import { EventBus } from '@nestjs/cqrs';
-import { NotificationsService } from 'src/notifications/providers/notifications.service';
 
 @Injectable()
 export class ProductsService {
@@ -23,7 +22,6 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
     private readonly usersService: UsersService,
-    private notificationsService: NotificationsService,
   ) {}
 
   // PUBLIC METHODS:
@@ -135,19 +133,6 @@ export class ProductsService {
     this._checkOwnership(product, activeUser.sub);
 
     try {
-      // const affectedUsers = product.wishlistUsers;
-
-      // affectedUsers.forEach(async (wishlistUser) => {
-      //   const message = `The product ${product.name} has been removed by its owner.`;
-      //   await this.notificationsService.createNotification(
-      //     wishlistUser.id,
-      //     message,
-      //     productId,
-      //     activeUser.sub,
-      //     'remove',
-      //   );
-      // });
-
       await this.productsRepository.delete(productId);
     } catch (error) {
       console.error('[ProductsService - deleteProduct]', error);

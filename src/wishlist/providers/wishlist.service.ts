@@ -9,14 +9,12 @@ import { DataSource } from 'typeorm';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { User } from 'src/users/user.entity';
 import { Product } from 'src/products/product.entity';
-import { NotificationsService } from 'src/notifications/providers/notifications.service';
 
 @Injectable()
 export class WishlistService {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,
-    private notificationsService: NotificationsService,
   ) {}
 
   async addToWishlist(productId: number, activeUser: ActiveUserData) {
@@ -66,15 +64,6 @@ export class WishlistService {
       if (!product.wishlistUsers?.some((u) => u.id === activeUser.sub)) {
         product.wishlistUsers?.push(user);
       }
-
-      // const message = `${user.id} added your product ${product.name} to their wishlist.`;
-      // await this.notificationsService.createNotification(
-      //   product.owner.id,
-      //   message,
-      //   productId,
-      //   user.id,
-      //   'add',
-      // );
 
       // Save both entities
       await queryRunner.manager.save(User, user);
