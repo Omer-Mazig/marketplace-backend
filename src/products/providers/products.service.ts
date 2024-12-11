@@ -25,7 +25,7 @@ export class ProductsService {
   ) {}
 
   // PUBLIC METHODS:
-  public async getAllProducts() {
+  public async find() {
     try {
       return await this.productsRepository.find({
         relations: ['owner', 'wishlistUsers'],

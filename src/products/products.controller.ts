@@ -19,10 +19,12 @@ import { PatchProductDto } from './dtos/patch-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Get()
+  @Get('category/:category')
   @Auth(AuthType.None)
-  public getAllProducts() {
-    return this.productsService.getAllProducts();
+  public getProductsByCategory(@Param('category') category: string) {
+    console.log(category);
+
+    return this.productsService.find();
   }
 
   @Get(':productId')
