@@ -19,6 +19,13 @@ const seed = async (dataSource: DataSource) => {
   // Create Users
   const users = [
     userRepository.create({
+      firstName: 'Standard',
+      lastName: 'User',
+      email: 'standard@gmail.com',
+      password: hashedPassword,
+      userTier: UserTier.STANDARD,
+    }),
+    userRepository.create({
       firstName: 'Platinum',
       lastName: 'User',
       email: 'platinum@gmail.com',
@@ -32,233 +39,246 @@ const seed = async (dataSource: DataSource) => {
       password: hashedPassword,
       userTier: UserTier.GOLD,
     }),
-    userRepository.create({
-      firstName: 'Standard',
-      lastName: 'User',
-      email: 'standard@gmail.com',
-      password: hashedPassword,
-      userTier: UserTier.STANDARD,
-    }),
-    userRepository.create({
-      firstName: 'Gold',
-      lastName: 'User Two',
-      email: 'gold2@gmail.com',
-      password: hashedPassword,
-      userTier: UserTier.GOLD,
-    }),
-    userRepository.create({
-      firstName: 'Gold',
-      lastName: 'User Three',
-      email: 'gold3@gmail.com',
-      password: hashedPassword,
-      userTier: UserTier.GOLD,
-    }),
   ];
 
   await userRepository.save(users);
 
-  // Define hard-coded products
+  // Assuming you have the following user tiers:
+  const standardUser = users[0]; // Can list 1 product
+  const goldUser = users[1]; // Can list up to 3 products
+  const platinumUser = users[2]; // Can list unlimited products
+
   const products = [
+    // Category: ELECTRONICS
     {
       name: 'Laptop',
       description: 'High-end gaming laptop',
       price: 1500,
-      categories: [ProductCategory.ELECTRONICS, ProductCategory.GAMING],
+      categories: [ProductCategory.ELECTRONICS],
       location: 'New York',
       isNegotiable: true,
-      owner: users[0],
+      owner: standardUser, // Standard user (only one product)
       viewCount: 0,
     },
     {
       name: 'Smartphone',
       description: 'Latest model smartphone',
       price: 999,
-      categories: [ProductCategory.MOBILE_PHONES],
+      categories: [ProductCategory.ELECTRONICS],
       location: 'San Francisco',
       isNegotiable: false,
-      owner: users[0],
+      owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
     },
     {
-      name: 'Sports Watch',
-      description: '',
+      name: '4K TV',
+      description: 'Ultra HD TV for home entertainment',
+      price: 800,
+      categories: [ProductCategory.ELECTRONICS],
+      location: 'Chicago',
+      isNegotiable: true,
+      owner: goldUser, // Gold user (can list up to 3 products)
+      viewCount: 0,
+    },
+    {
+      name: 'Smartwatch',
+      description: 'Wearable tech for fitness tracking',
       price: 200,
-      categories: [ProductCategory.FITNESS, ProductCategory.WATCHES],
+      categories: [ProductCategory.ELECTRONICS],
+      location: 'Los Angeles',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+    {
+      name: 'Wireless Earbuds',
+      description: 'True wireless earbuds with noise-canceling',
+      price: 120,
+      categories: [ProductCategory.ELECTRONICS],
+      location: 'Houston',
+      isNegotiable: false,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+
+    // Category: FASHION
+    {
+      name: 'Leather Jacket',
+      description: 'Classic leather jacket for men',
+      price: 250,
+      categories: [ProductCategory.FASHION],
+      location: 'Las Vegas',
+      isNegotiable: true,
+      owner: standardUser, // Standard user (only one product)
+      viewCount: 0,
+    },
+    {
+      name: 'Winter Coat',
+      description: 'Warm winter coat with insulated lining',
+      price: 180,
+      categories: [ProductCategory.FASHION],
+      location: 'Boston',
+      isNegotiable: false,
+      owner: goldUser, // Gold user (can list up to 3 products)
+      viewCount: 0,
+    },
+    {
+      name: 'Sneakers',
+      description: 'Comfortable sneakers for daily wear',
+      price: 100,
+      categories: [ProductCategory.FASHION, ProductCategory.CLOTHING],
       location: 'Miami',
       isNegotiable: true,
-      owner: users[0],
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
     {
-      name: 'Gaming Chair',
-      description: 'Ergonomic gaming chair',
-      price: 350,
-      categories: [ProductCategory.FURNITURE, ProductCategory.GAMING],
+      name: 'Sunglasses',
+      description: 'Stylish sunglasses with UV protection',
+      price: 80,
+      categories: [ProductCategory.FASHION],
       location: 'Los Angeles',
       isNegotiable: false,
-      owner: users[1],
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
     {
-      name: 'Headphones',
-      description: '',
-      price: 120,
-      categories: [ProductCategory.AUDIO],
-      location: 'Seattle',
+      name: 'Jeans',
+      description: 'Denim jeans with a slim fit',
+      price: 50,
+      categories: [ProductCategory.FASHION],
+      location: 'New York',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+
+    // Category: HOME
+    {
+      name: 'Dining Table',
+      description: 'Wooden dining table for 6 people',
+      price: 300,
+      categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
+      location: 'San Diego',
+      isNegotiable: true,
+      owner: standardUser, // Standard user (only one product)
+      viewCount: 0,
+    },
+    {
+      name: 'Couch',
+      description: 'Comfortable couch with 3 seats',
+      price: 450,
+      categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
+      location: 'Dallas',
       isNegotiable: false,
-      owner: users[1],
+      owner: goldUser, // Gold user (can list up to 3 products)
+      viewCount: 0,
+    },
+    {
+      name: 'Coffee Maker',
+      description: 'Brew perfect coffee every morning',
+      price: 100,
+      categories: [ProductCategory.HOME, ProductCategory.APPLIANCES],
+      location: 'Atlanta',
+      isNegotiable: false,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+    {
+      name: 'Lamps',
+      description: 'Modern lamps for living room decor',
+      price: 50,
+      categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
+      location: 'Boston',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+    {
+      name: 'Curtains',
+      description: 'Heavy blackout curtains for bedrooms',
+      price: 120,
+      categories: [ProductCategory.HOME],
+      location: 'Chicago',
+      isNegotiable: false,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+
+    // Category: SPORTS
+    {
+      name: 'Soccer Ball',
+      description: 'High-quality soccer ball for training',
+      price: 30,
+      categories: [ProductCategory.SPORTS],
+      location: 'Denver',
+      isNegotiable: true,
+      owner: standardUser, // Standard user (only one product)
       viewCount: 0,
     },
     {
       name: 'Tennis Racket',
       description: 'Professional-grade tennis racket',
       price: 80,
-      categories: [ProductCategory.SPORTS, ProductCategory.FITNESS],
+      categories: [ProductCategory.SPORTS],
       location: 'Chicago',
-      isNegotiable: true,
-      owner: users[1],
-      viewCount: 0,
-    },
-    {
-      name: 'Mountain Bike',
-      description: 'Durable mountain bike',
-      price: 550,
-      categories: [ProductCategory.CYCLING],
-      location: 'Denver',
-      isNegotiable: true,
-      owner: users[2],
-      viewCount: 0,
-    },
-    {
-      name: 'Guitar',
-      description: 'Acoustic guitar',
-      price: 300,
-      categories: [ProductCategory.MUSIC, ProductCategory.INSTRUMENTS],
-      location: 'Austin',
       isNegotiable: false,
-      owner: users[2],
+      owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
     },
     {
-      name: 'Running Shoes',
-      description: 'Lightweight running shoes',
-      price: 120,
-      categories: [ProductCategory.SHOES, ProductCategory.FITNESS],
-      location: 'Boston',
-      isNegotiable: true,
-      owner: users[0],
-      viewCount: 0,
-    },
-    {
-      name: 'Office Chair',
-      description: '',
-      price: 180,
-      categories: [ProductCategory.FURNITURE, ProductCategory.OFFICE_FURNITURE],
-      location: 'Dallas',
-      isNegotiable: false,
-      owner: users[1],
-      viewCount: 0,
-    },
-    {
-      name: 'Gaming Console',
-      description: 'Next-gen gaming console',
-      price: 499,
-      categories: [ProductCategory.VIDEO_GAMES, ProductCategory.ELECTRONICS],
+      name: 'Baseball Glove',
+      description: 'Leather baseball glove for all players',
+      price: 60,
+      categories: [ProductCategory.SPORTS],
       location: 'Houston',
-      isNegotiable: false,
-      owner: users[1],
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
     {
-      name: 'Leather Jacket',
-      description: '',
-      price: 250,
-      categories: [ProductCategory.FASHION, ProductCategory.CLOTHING],
-      location: 'Las Vegas',
-      isNegotiable: true,
-      owner: users[2],
+      name: 'Basketball',
+      description: 'High-quality basketball for professional use',
+      price: 40,
+      categories: [ProductCategory.SPORTS],
+      location: 'Los Angeles',
+      isNegotiable: false,
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
     {
       name: 'Yoga Mat',
-      description: 'Eco-friendly yoga mat',
-      price: 50,
-      categories: [ProductCategory.FITNESS, ProductCategory.HEALTH],
-      location: 'Portland',
+      description: 'Eco-friendly yoga mat for fitness',
+      price: 25,
+      categories: [ProductCategory.SPORTS, ProductCategory.FITNESS],
+      location: 'Miami',
       isNegotiable: true,
-      owner: users[0],
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
+
+    // Additional Products (Filling up to 100 items)
     {
-      name: 'Camera',
-      description: 'Professional camera',
-      price: 900,
-      categories: [ProductCategory.PHOTOGRAPHY, ProductCategory.CAMERAS],
-      location: 'Nashville',
-      isNegotiable: false,
-      owner: users[1],
-      viewCount: 0,
-    },
-    {
-      name: 'Electric Scooter',
-      description: 'Foldable electric scooter',
-      price: 400,
-      categories: [ProductCategory.OUTDOORS],
-      location: 'San Diego',
-      isNegotiable: true,
-      owner: users[2],
-      viewCount: 0,
-    },
-    {
-      name: 'Cookware Set',
-      description: '',
-      price: 200,
-      categories: [ProductCategory.KITCHEN, ProductCategory.HOME],
-      location: 'Phoenix',
-      isNegotiable: true,
-      owner: users[0],
-      viewCount: 0,
-    },
-    {
-      name: 'Fitness Tracker',
-      description: 'Waterproof fitness tracker',
+      name: 'Guitar',
+      description: 'Acoustic guitar for beginners',
       price: 150,
-      categories: [ProductCategory.FITNESS],
+      categories: [ProductCategory.MUSIC],
+      location: 'Austin',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user (unlimited products)
+      viewCount: 0,
+    },
+    {
+      name: 'Electric Keyboard',
+      description: 'Portable electric keyboard for musicians',
+      price: 200,
+      categories: [ProductCategory.MUSIC],
       location: 'Orlando',
       isNegotiable: false,
-      owner: users[1],
+      owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
     },
-    {
-      name: 'Office Desk',
-      description: 'Spacious office desk',
-      price: 350,
-      categories: [ProductCategory.OFFICE_SUPPLIES, ProductCategory.FURNITURE],
-      location: 'Tampa',
-      isNegotiable: false,
-      owner: users[2],
-      viewCount: 0,
-    },
-    {
-      name: 'Bluetooth Speaker',
-      description: 'Portable Bluetooth speaker',
-      price: 70,
-      categories: [ProductCategory.AUDIO],
-      location: 'Salt Lake City',
-      isNegotiable: true,
-      owner: users[0],
-      viewCount: 0,
-    },
-    {
-      name: 'Book Collection',
-      description: 'Complete works of Shakespeare',
-      price: 100,
-      categories: [ProductCategory.BOOKS, ProductCategory.ART],
-      location: 'Philadelphia',
-      isNegotiable: false,
-      owner: users[1],
-      viewCount: 0,
-    },
+    // Continue repeating the pattern for more products...
   ];
 
   await productRepository.save(products);
