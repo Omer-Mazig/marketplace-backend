@@ -27,6 +27,9 @@ export class User {
   @Column({ unique: true })
   email: string;
 
+  @Column({ nullable: true })
+  imageUrl?: string;
+
   @Column({
     select: false, // This will exclude the password from queries by default
   })

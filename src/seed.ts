@@ -26,18 +26,19 @@ const seed = async (dataSource: DataSource) => {
       userTier: UserTier.STANDARD,
     }),
     userRepository.create({
-      firstName: 'Platinum',
-      lastName: 'User',
-      email: 'platinum@gmail.com',
-      password: hashedPassword,
-      userTier: UserTier.PLATINUM,
-    }),
-    userRepository.create({
       firstName: 'Gold',
       lastName: 'User',
       email: 'gold@gmail.com',
       password: hashedPassword,
       userTier: UserTier.GOLD,
+    }),
+    userRepository.create({
+      firstName: 'Platinum',
+      lastName: 'User',
+      email: 'platinum@gmail.com',
+      password: hashedPassword,
+      userTier: UserTier.PLATINUM,
+      imageUrl: 'https://avatars.githubusercontent.com/u/114055368?v=4',
     }),
   ];
 
