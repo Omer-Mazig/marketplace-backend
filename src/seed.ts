@@ -52,7 +52,7 @@ const seed = async (dataSource: DataSource) => {
   const platinumUser = users[2]; // Can list unlimited products
 
   const products = [
-    // Category: ELECTRONICS
+    // Standard User: Only 1 product
     {
       name: 'Laptop',
       description: 'High-end gaming laptop',
@@ -60,10 +60,12 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.ELECTRONICS],
       location: 'New York',
       isNegotiable: true,
-      owner: standardUser, // Standard user (only one product)
+      owner: standardUser, // Standard user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
+
+    // Gold User: Up to 3 products
     {
       name: 'Smartphone',
       description: 'Latest model smartphone',
@@ -71,7 +73,7 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.ELECTRONICS],
       location: 'San Francisco',
       isNegotiable: false,
-      owner: goldUser, // Gold user (can list up to 3 products)
+      owner: goldUser, // Gold user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
@@ -82,42 +84,7 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.ELECTRONICS],
       location: 'Chicago',
       isNegotiable: true,
-      owner: goldUser, // Gold user (can list up to 3 products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Smartwatch',
-      description: 'Wearable tech for fitness tracking',
-      price: 200,
-      categories: [ProductCategory.ELECTRONICS],
-      location: 'Los Angeles',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Wireless Earbuds',
-      description: 'True wireless earbuds with noise-canceling',
-      price: 120,
-      categories: [ProductCategory.ELECTRONICS],
-      location: 'Houston',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-
-    // Category: FASHION
-    {
-      name: 'Leather Jacket',
-      description: 'Classic leather jacket for men',
-      price: 250,
-      categories: [ProductCategory.FASHION],
-      location: 'Las Vegas',
-      isNegotiable: true,
-      owner: standardUser, // Standard user (only one product)
+      owner: goldUser, // Gold user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
@@ -128,7 +95,42 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.FASHION],
       location: 'Boston',
       isNegotiable: false,
-      owner: goldUser, // Gold user (can list up to 3 products)
+      owner: goldUser, // Gold user
+      viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
+    },
+
+    // Platinum User: Unlimited products
+    {
+      name: 'Smartwatch',
+      description: 'Wearable tech for fitness tracking',
+      price: 200,
+      categories: [ProductCategory.ELECTRONICS],
+      location: 'Los Angeles',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user
+      viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
+    },
+    {
+      name: 'Wireless Earbuds',
+      description: 'True wireless earbuds with noise-canceling',
+      price: 120,
+      categories: [ProductCategory.ELECTRONICS],
+      location: 'Houston',
+      isNegotiable: false,
+      owner: platinumUser, // Platinum user
+      viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
+    },
+    {
+      name: 'Leather Jacket',
+      description: 'Classic leather jacket for men',
+      price: 250,
+      categories: [ProductCategory.FASHION],
+      location: 'Las Vegas',
+      isNegotiable: true,
+      owner: platinumUser, // Platinum user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
@@ -139,34 +141,10 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.FASHION, ProductCategory.CLOTHING],
       location: 'Miami',
       isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
+      owner: platinumUser, // Platinum user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
-    {
-      name: 'Sunglasses',
-      description: 'Stylish sunglasses with UV protection',
-      price: 80,
-      categories: [ProductCategory.FASHION],
-      location: 'Los Angeles',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Jeans',
-      description: 'Denim jeans with a slim fit',
-      price: 50,
-      categories: [ProductCategory.FASHION],
-      location: 'New York',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-
-    // Category: HOME
     {
       name: 'Dining Table',
       description: 'Wooden dining table for 6 people',
@@ -174,136 +152,10 @@ const seed = async (dataSource: DataSource) => {
       categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
       location: 'San Diego',
       isNegotiable: true,
-      owner: standardUser, // Standard user (only one product)
+      owner: platinumUser, // Platinum user
       viewCount: 0,
       imageURL: 'https://picsum.photos/800/1200',
     },
-    {
-      name: 'Couch',
-      description: 'Comfortable couch with 3 seats',
-      price: 450,
-      categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
-      location: 'Dallas',
-      isNegotiable: false,
-      owner: goldUser, // Gold user (can list up to 3 products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Coffee Maker',
-      description: 'Brew perfect coffee every morning',
-      price: 100,
-      categories: [ProductCategory.HOME, ProductCategory.APPLIANCES],
-      location: 'Atlanta',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Lamps',
-      description: 'Modern lamps for living room decor',
-      price: 50,
-      categories: [ProductCategory.HOME, ProductCategory.FURNITURE],
-      location: 'Boston',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Curtains',
-      description: 'Heavy blackout curtains for bedrooms',
-      price: 120,
-      categories: [ProductCategory.HOME],
-      location: 'Chicago',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-
-    // Category: SPORTS
-    {
-      name: 'Soccer Ball',
-      description: 'High-quality soccer ball for training',
-      price: 30,
-      categories: [ProductCategory.SPORTS],
-      location: 'Denver',
-      isNegotiable: true,
-      owner: standardUser, // Standard user (only one product)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Tennis Racket',
-      description: 'Professional-grade tennis racket',
-      price: 80,
-      categories: [ProductCategory.SPORTS],
-      location: 'Chicago',
-      isNegotiable: false,
-      owner: goldUser, // Gold user (can list up to 3 products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Baseball Glove',
-      description: 'Leather baseball glove for all players',
-      price: 60,
-      categories: [ProductCategory.SPORTS],
-      location: 'Houston',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Basketball',
-      description: 'High-quality basketball for professional use',
-      price: 40,
-      categories: [ProductCategory.SPORTS],
-      location: 'Los Angeles',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Yoga Mat',
-      description: 'Eco-friendly yoga mat for fitness',
-      price: 25,
-      categories: [ProductCategory.SPORTS, ProductCategory.FITNESS],
-      location: 'Miami',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-
-    // Additional Products (Filling up to 100 items)
-    {
-      name: 'Guitar',
-      description: 'Acoustic guitar for beginners',
-      price: 150,
-      categories: [ProductCategory.MUSIC],
-      location: 'Austin',
-      isNegotiable: true,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    {
-      name: 'Electric Keyboard',
-      description: 'Portable electric keyboard for musicians',
-      price: 200,
-      categories: [ProductCategory.MUSIC],
-      location: 'Orlando',
-      isNegotiable: false,
-      owner: platinumUser, // Platinum user (unlimited products)
-      viewCount: 0,
-      imageURL: 'https://picsum.photos/800/1200',
-    },
-    // Continue repeating the pattern for more products...
   ];
 
   await productRepository.save(products);
