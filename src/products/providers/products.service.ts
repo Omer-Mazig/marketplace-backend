@@ -174,7 +174,7 @@ export class ProductsService {
         message: 'STANDARD users can only have one product.',
         redirectToUpgradePlan: true,
       });
-    } else if (userTier === UserTier.GOLD && ownerProductsCount >= 5) {
+    } else if (userTier === UserTier.GOLD && ownerProductsCount >= 3) {
       throw new BadRequestException({
         message: 'GOLD users can only have up to five products.',
         redirectToUpgradePlan: true,
