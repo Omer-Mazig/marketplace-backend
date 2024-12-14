@@ -60,6 +60,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: standardUser, // Standard user (only one product)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Smartphone',
@@ -70,6 +71,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: '4K TV',
@@ -80,6 +82,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Smartwatch',
@@ -90,6 +93,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Wireless Earbuds',
@@ -100,6 +104,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
 
     // Category: FASHION
@@ -112,6 +117,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: standardUser, // Standard user (only one product)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Winter Coat',
@@ -122,6 +128,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Sneakers',
@@ -132,6 +139,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Sunglasses',
@@ -142,6 +150,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Jeans',
@@ -152,6 +161,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
 
     // Category: HOME
@@ -164,6 +174,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: standardUser, // Standard user (only one product)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Couch',
@@ -174,6 +185,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Coffee Maker',
@@ -184,6 +196,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Lamps',
@@ -194,6 +207,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Curtains',
@@ -204,6 +218,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
 
     // Category: SPORTS
@@ -216,6 +231,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: standardUser, // Standard user (only one product)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Tennis Racket',
@@ -226,6 +242,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: goldUser, // Gold user (can list up to 3 products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Baseball Glove',
@@ -236,6 +253,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Basketball',
@@ -246,6 +264,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Yoga Mat',
@@ -256,6 +275,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
 
     // Additional Products (Filling up to 100 items)
@@ -268,6 +288,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: true,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     {
       name: 'Electric Keyboard',
@@ -278,6 +299,7 @@ const seed = async (dataSource: DataSource) => {
       isNegotiable: false,
       owner: platinumUser, // Platinum user (unlimited products)
       viewCount: 0,
+      imageURL: 'https://picsum.photos/800/1200',
     },
     // Continue repeating the pattern for more products...
   ];
