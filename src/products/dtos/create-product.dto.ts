@@ -40,9 +40,9 @@ export class CreateProductDto {
   @IsEnum(ProductCategory, { each: true })
   categories: ProductCategory[];
 
-  @IsOptional()
   @IsString()
-  location?: string;
+  @IsNotEmpty()
+  location: string;
 
   @IsBoolean()
   isNegotiable: boolean;

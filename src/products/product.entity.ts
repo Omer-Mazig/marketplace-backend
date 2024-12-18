@@ -56,10 +56,8 @@ export class Product {
 
   @Column({
     type: 'varchar',
-    nullable: true,
-    default: null,
   })
-  location?: string;
+  location: string;
 
   @Column({
     type: 'boolean',

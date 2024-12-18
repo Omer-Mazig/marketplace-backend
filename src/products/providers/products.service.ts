@@ -84,6 +84,8 @@ export class ProductsService {
     const owner = await this.usersService.findOneById(activeUser.sub);
     await this._validateUserTierForProductCreation(owner.id, owner.userTier);
 
+    console.log(createProductDto);
+
     const product = this.productsRepository.create({
       ...createProductDto,
       owner,
