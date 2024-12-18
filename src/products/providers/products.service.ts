@@ -84,7 +84,10 @@ export class ProductsService {
     const owner = await this.usersService.findOneById(activeUser.sub);
     await this._validateUserTierForProductCreation(owner.id, owner.userTier);
 
-    console.log(createProductDto);
+    // TODO: figure out how todo this is DTO
+    if (createProductDto.categories.length === 0) {
+      throw new BadRequestException('Categories must not be an empty array');
+    }
 
     const product = this.productsRepository.create({
       ...createProductDto,

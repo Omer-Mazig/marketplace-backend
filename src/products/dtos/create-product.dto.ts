@@ -8,6 +8,7 @@ import {
   IsNotEmpty,
   IsPositive,
   IsBoolean,
+  Length,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/users/user.entity';
