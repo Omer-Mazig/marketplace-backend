@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateProductDto } from './create-product.dto';
 import {
+  ArrayNotEmpty,
   IsArray,
   IsBoolean,
   IsEnum,
@@ -34,11 +35,10 @@ export class PatchProductDto extends PartialType(CreateProductDto) {
   @IsString()
   imageURL?: string;
 
-  // Categories and wishlistUsers may not be intended for patch operations
-  @IsOptional()
   @IsArray()
   @IsEnum(ProductCategory, { each: true })
-  categories?: ProductCategory[];
+  @ArrayNotEmpty({ message: 'Categories must not be an empty array' })
+  categories: ProductCategory[];
 
   @IsOptional()
   @IsString()
