@@ -71,7 +71,6 @@ export class ProductsService {
     }
 
     if (!product) {
-      console.error('[ProductsService - getProductById]', 'Product not found');
       throw new NotFoundException('Product not found');
     }
 
