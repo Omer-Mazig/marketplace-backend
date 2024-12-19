@@ -9,7 +9,7 @@ export class DelayMiddleware implements NestMiddleware {
     if (process.env.NODE_ENV === 'development') {
       setTimeout(() => {
         next();
-      }, 2000);
+      }, 1000);
     } else {
       next();
     }
