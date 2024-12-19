@@ -8,7 +8,7 @@ import {
   IsNotEmpty,
   IsPositive,
   IsBoolean,
-  Length,
+  ArrayNotEmpty,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { User } from 'src/users/user.entity';
@@ -39,6 +39,7 @@ export class CreateProductDto {
 
   @IsArray()
   @IsEnum(ProductCategory, { each: true })
+  @ArrayNotEmpty({ message: 'Categories must not be an empty array' })
   categories: ProductCategory[];
 
   @IsString()
