@@ -1,9 +1,9 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
   RequestTimeoutException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ArrayContains, Repository } from 'typeorm';
@@ -155,8 +155,9 @@ export class ProductsService {
   // PRIVATE METHODS:
   private _checkOwnership(product: Product, userId: number) {
     if (product.owner.id !== userId) {
-      throw new UnauthorizedException(
+      throw new ForbiddenException(
         'Cannot modify a product that you do not own',
+        {},
       );
     }
   }
