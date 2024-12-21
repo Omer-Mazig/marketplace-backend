@@ -82,9 +82,6 @@ export class WishlistService {
   async removeFromWishlist(productId: number, activeUser: ActiveUserData) {
     const queryRunner = this.dataSource.createQueryRunner();
 
-    // for test optemistic update
-    // throw new Error();
-
     try {
       await queryRunner.connect();
       await queryRunner.startTransaction();
