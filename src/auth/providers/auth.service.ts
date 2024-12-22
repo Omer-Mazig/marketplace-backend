@@ -1,10 +1,11 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable, forwardRef, Inject } from '@nestjs/common';
 import { SignInDto } from '../dtos/signin.dto';
 import { UsersService } from 'src/users/providers/users.service';
 import { SignInProvider } from './sign-in.provider';
 import { RefreshTokenDto } from '../dtos/refresh-token.dto';
 import { RefreshTokensProvider } from './refresh-tokens.provider';
 import { Response } from 'express';
+import { CookieProvider } from './cookie.provider';
 
 @Injectable()
 export class AuthService {
@@ -13,19 +14,14 @@ export class AuthService {
     private readonly userService: UsersService,
     private readonly signInProvider: SignInProvider,
     private readonly refreshTokensProvider: RefreshTokensProvider,
+    private readonly cookieProvider: CookieProvider,
   ) {}
 
   public async signIn(signInDto: SignInDto, res: Response) {
     const { accessToken, refreshToken } =
       await this.signInProvider.signIn(signInDto);
 
-    // Set the refresh token in an httpOnly cookie
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true, // Cannot be accessed by JavaScript
-      secure: process.env.NODE_ENV === 'production', // Only send over HTTPS
-      sameSite: 'strict', // Protect against CSRF
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours to match JWT_REFRESH_TOKEN_TTL
-    });
+    this.cookieProvider.setRefreshToken(res, refreshToken);
 
     return { accessToken };
   }

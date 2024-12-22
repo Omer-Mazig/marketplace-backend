@@ -10,6 +10,7 @@ import jwtConfig from './config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { GenerateTokensProvider } from './providers/generate-tokens.provider';
 import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
+import { CookieProvider } from './providers/cookie.provider';
 
 // TODO: LOOK AT APP MODULE CONFIG. WE MIGHT REMOE SOME CONFIG HERE
 
@@ -26,6 +27,7 @@ import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
     SignInProvider,
     GenerateTokensProvider,
     RefreshTokensProvider,
+    CookieProvider,
   ],
   imports: [
     // Use forwardRef to avoid circular dependency issues between
@@ -40,6 +42,6 @@ import { RefreshTokensProvider } from './providers/refresh-tokens.provider';
     // and expiration based on environment variables.
     JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
-  exports: [AuthService, HashingProvider],
+  exports: [AuthService, HashingProvider, CookieProvider],
 })
 export class AuthModule {}

@@ -9,15 +9,18 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { SignInDto } from './dtos/signin.dto';
-import { AuthService } from './providers/auth.service';
 import { Auth } from './decorators/auth.decorator';
 import { AuthType } from './enums/auth-type.enum';
-
 import { Response, Request } from 'express';
+import { AuthService } from './providers/auth.service';
+import { CookieProvider } from './providers/cookie.provider';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly cookieProvider: CookieProvider,
+  ) {}
 
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
@@ -30,7 +33,7 @@ export class AuthController {
   @Post('sign-out')
   @Auth(AuthType.None)
   public async signOut(@Req() req: Request, @Res() res: Response) {
-    res.clearCookie('refreshToken');
+    this.cookieProvider.clearRefreshToken(res);
     return res.json({ message: 'Logging out' });
   }
 
@@ -45,14 +48,9 @@ export class AuthController {
 
     try {
       const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        await this.authService.refreshTokens({ refreshToken }); // ?
+        await this.authService.refreshTokens({ refreshToken });
 
-      res.cookie('refreshToken', newRefreshToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours to match JWT_REFRESH_TOKEN_TTL
-      });
+      this.cookieProvider.setRefreshToken(res, newRefreshToken);
 
       return res.json({ accessToken: newAccessToken });
     } catch (error) {
