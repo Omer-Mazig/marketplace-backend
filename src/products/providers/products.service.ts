@@ -136,10 +136,14 @@ export class ProductsService {
   }
 
   public async deleteProduct(productId: number, activeUser: ActiveUserData) {
+    // Fetch the product before deleting it
     const product = await this.getProductById(productId);
+
+    // Check ownership
     this._checkOwnership(product, activeUser.sub);
 
     try {
+      // Delete the product
       await this.productsRepository.delete(productId);
     } catch (error) {
       console.error(
@@ -155,7 +159,8 @@ export class ProductsService {
     let notificationStatus = { success: true, error: null };
 
     try {
-      await this.notificationsService.notifyProductDeletion(productId);
+      // Notify about the product deletion using the fetched product data
+      await this.notificationsService.notifyProductDeletion(product);
     } catch (error) {
       console.error(
         '[ProductsService - deleteProduct] Notification error:',

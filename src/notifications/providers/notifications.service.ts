@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  RequestTimeoutException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Notification } from '../notification.entity';
 import { Product } from 'src/products/product.entity';
+import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
 @Injectable()
 export class NotificationsService {
@@ -13,29 +18,29 @@ export class NotificationsService {
     private productRepository: Repository<Product>,
   ) {}
 
-  async notifyProductDeletion(productId: number) {
-    let product: Product | null;
-
-    // Step 1: Fetch the product
+  async getNotifications(activeUser: ActiveUserData) {
     try {
-      product = await this.productRepository.findOne({
-        where: { id: productId },
-        relations: ['wishlistUsers'],
+      const notifications = await this.notificationRepository.find({
+        where: {
+          user: { id: activeUser.sub }, // Use the user's ID directly
+        },
+        order: {
+          createdAt: 'DESC', // Optional: Order by newest notifications
+        },
       });
+      return notifications;
     } catch (error) {
-      console.error(
-        `[NotificationsService] Error fetching product with ID ${productId}:`,
-        error,
-      );
-      throw new Error(
-        'Failed to retrieve product during notification process.',
+      console.error('[NotificationsService - getNotifications]', error);
+      throw new RequestTimeoutException(
+        'Unable to fetch notifications. Please try again later.',
+        { description: 'Error querying the database' },
       );
     }
+  }
 
+  async notifyProductDeletion(product: Product) {
     if (!product) {
-      console.warn(
-        `[NotificationsService] Product with ID ${productId} not found.`,
-      );
+      console.warn(`[NotificationsService] Product data is missing.`);
       throw new NotFoundException('Product not found');
     }
 
@@ -44,6 +49,7 @@ export class NotificationsService {
         return this.notificationRepository.create({
           user,
           message: `The product '${product.name}' has been deleted.`,
+          type: 'product_deleted',
         });
       } catch (error) {
         console.error(
@@ -54,12 +60,12 @@ export class NotificationsService {
       }
     });
 
-    // Step 2: Save notifications
+    // Save notifications
     try {
       await this.notificationRepository.save(notifications);
     } catch (error) {
       console.error(
-        `[NotificationsService] Error saving notifications for product ID ${productId}:`,
+        `[NotificationsService] Error saving notifications for product ID ${product.id}:`,
         error,
       );
       throw new Error('Failed to save notifications for product deletion.');

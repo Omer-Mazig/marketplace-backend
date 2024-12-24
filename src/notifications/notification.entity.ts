@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { NotificationType } from './types/notifications.type';
 
 @Entity()
 export class Notification {
@@ -30,7 +31,7 @@ export class Notification {
   product: Product | null;
 
   @Column({ type: 'varchar', nullable: true })
-  type: string; // Type of notification (e.g., "product_update", "wishlist_batch").
+  type: NotificationType;
 
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any> | null; // Additional data for the notification.
