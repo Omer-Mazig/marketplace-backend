@@ -27,6 +27,7 @@ export class SignInProvider {
     let isEqual = false;
 
     try {
+      // TODO: check how do we call abstract class
       isEqual = await this.hashingProvider.comparePassword(
         signInDto.password,
         userWithPassword.password,

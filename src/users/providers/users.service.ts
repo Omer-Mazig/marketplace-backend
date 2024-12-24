@@ -13,7 +13,7 @@ import { Repository } from 'typeorm';
 import { User } from '../user.entity';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 
-// TODO: decide waht to use: findOne or findOneBy
+// TODO: make this code more DRY
 @Injectable()
 export class UsersService {
   constructor(
@@ -59,12 +59,10 @@ export class UsersService {
     let existingUser: User | null = null;
 
     try {
-      // Check if a user already exists with the same email
       existingUser = await this.usersRepository.findOne({
         where: { email: createUserDto.email },
       });
     } catch (error) {
-      // Handle errors related to database connectivity
       throw new RequestTimeoutException(
         'Unable to process your request at the moment please try later',
         {
@@ -73,24 +71,20 @@ export class UsersService {
       );
     }
 
-    // If a user with the same email exists, throw an exception
     if (existingUser) {
       throw new BadRequestException(
         'The user already exists, please check your email.',
       );
     }
 
-    // Create a new user with hashed password
     let newUser = this.usersRepository.create({
       ...createUserDto,
       password: await this.hashingProvider.hashPassword(createUserDto.password),
     });
 
     try {
-      // Save the new user to the database
       newUser = await this.usersRepository.save(newUser);
     } catch (error) {
-      // Handle errors related to database saving
       throw new RequestTimeoutException(
         'Unable to process your request at the moment please try later',
         {
@@ -99,7 +93,6 @@ export class UsersService {
       );
     }
 
-    // Return the newly created user
     return newUser;
   }
 
@@ -121,26 +114,6 @@ export class UsersService {
 
     if (!user) {
       throw new BadRequestException('The user ID does not exist');
-    }
-
-    return user;
-  }
-
-  public async findOneByEmail(email: string) {
-    let user: User | null = null;
-
-    try {
-      user = await this.usersRepository.findOneBy({
-        email: email,
-      });
-    } catch (error) {
-      throw new RequestTimeoutException(error, {
-        description: 'Could not fetch the user',
-      });
-    }
-
-    if (!user) {
-      throw new UnauthorizedException('User does not exists');
     }
 
     return user;
