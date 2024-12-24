@@ -16,6 +16,7 @@ import jwtConfig from './auth/config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
 import { WishlistModule } from './wishlist/wishlist.module';
 import { UploadsModule } from './uploads/uploads.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 const ENV = process.env.NODE_ENV;
 
@@ -26,6 +27,7 @@ const ENV = process.env.NODE_ENV;
     AuthModule,
     WishlistModule,
     UploadsModule,
+    NotificationsModule,
 
     ConfigModule.forRoot({
       isGlobal: true,
