@@ -14,6 +14,7 @@ import { UserTier } from 'src/users/enums/user-tier.enum';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
+import { NotificationsService } from 'src/notifications/providers/notifications.service';
 
 @Injectable()
 export class ProductsService {
@@ -21,6 +22,7 @@ export class ProductsService {
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
     private readonly usersService: UsersService,
+    private readonly notificationsService: NotificationsService,
   ) {}
 
   // PUBLIC METHODS:
@@ -140,16 +142,29 @@ export class ProductsService {
     try {
       await this.productsRepository.delete(productId);
     } catch (error) {
-      console.error('[ProductsService - deleteProduct]', error);
+      console.error(
+        '[ProductsService - deleteProduct] Error deleting product:',
+        error,
+      );
       throw new RequestTimeoutException(
-        'Unable to process your request. Please try later.',
-        {
-          description: 'Error connecting to the database',
-        },
+        'Unable to delete the product. Please try later.',
+        { description: 'Database delete operation failed' },
       );
     }
 
-    return { deleted: true, productId };
+    let notificationStatus = { success: true, error: null };
+
+    try {
+      await this.notificationsService.notifyProductDeletion(productId);
+    } catch (error) {
+      console.error(
+        '[ProductsService - deleteProduct] Notification error:',
+        error,
+      );
+      notificationStatus = { success: false, error: error.message };
+    }
+
+    return { deleted: true, productId, notificationStatus };
   }
 
   // PRIVATE METHODS:
