@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Notification } from '../notification.entity';
@@ -36,7 +36,7 @@ export class NotificationsService {
       console.warn(
         `[NotificationsService] Product with ID ${productId} not found.`,
       );
-      throw new Error('Product not found');
+      throw new NotFoundException('Product not found');
     }
 
     const notifications = product.wishlistUsers.map((user) => {
