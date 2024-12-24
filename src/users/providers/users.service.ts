@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { UserFinderProvider } from './user-finder.provider';
 import { UserCreationProvider } from './user-creation.provider';
+import { CreateUserDto } from '../dtos/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,7 @@ export class UsersService {
     return this.userFinderProvider.findOneWithRelations(id);
   }
 
-  async createUser(createUserDto) {
+  async createUser(createUserDto: CreateUserDto) {
     return this.userCreationProvider.createUser(createUserDto);
   }
 }
