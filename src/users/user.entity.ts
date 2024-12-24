@@ -11,6 +11,7 @@ import {
 import { Product } from 'src/products/product.entity';
 import { UserTier } from './enums/user-tier.enum';
 import { Exclude } from 'class-transformer';
+import { Notification } from 'src/notifications/notification.entity';
 
 // TODO: add imageURL, chnage the naming in client from imageUrl
 @Entity()
@@ -59,4 +60,14 @@ export class User {
     inverseJoinColumn: { name: 'productId' },
   })
   wishlist: Product[];
+
+  @OneToMany(() => Notification, (notification) => notification.user)
+  notifications: Notification[];
+
+  @ManyToMany(() => User, (user) => user.subscribedTo)
+  @JoinTable()
+  subscribers: User[];
+
+  @ManyToMany(() => User, (user) => user.subscribers)
+  subscribedTo: User[];
 }
