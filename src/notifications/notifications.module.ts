@@ -8,7 +8,7 @@ import { Product } from 'src/products/product.entity';
 @Module({
   controllers: [NotificationsController],
   providers: [NotificationsService],
-  imports: [TypeOrmModule.forFeature([Notification, Product])],
+  imports: [TypeOrmModule.forFeature([Notification])],
   exports: [NotificationsService],
 })
 export class NotificationsModule {}

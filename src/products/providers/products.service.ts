@@ -14,18 +14,24 @@ import { UserTier } from 'src/users/enums/user-tier.enum';
 import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
-import { NotificationsService } from 'src/notifications/providers/notifications.service';
+import {
+  ProductDeletedEvent,
+  ProductUpdatedEvent,
+} from 'src/notifications/events/notification.events';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { UserFinderProvider } from 'src/users/providers/user-finder.provider';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
-    private readonly usersService: UsersService,
-    private readonly notificationsService: NotificationsService,
+    private readonly userFinderProvider: UserFinderProvider,
+    private readonly eventEmitter: EventEmitter2, // Add EventEmitter
   ) {}
 
   // PUBLIC METHODS:
+  // TODO: type for params
   public async find({ category }: { category: string }) {
     const categoryValue = category.charAt(0).toUpperCase() + category.slice(1); // Capitalize the first letter
 
@@ -83,7 +89,7 @@ export class ProductsService {
     createProductDto: CreateProductDto,
     activeUser: ActiveUserData,
   ) {
-    const owner = await this.usersService.findOneById(activeUser.sub);
+    const owner = await this.userFinderProvider.findOneById(activeUser.sub);
     await this._validateUserTierForProductCreation(owner.id, owner.userTier);
 
     const product = this.productsRepository.create({
@@ -123,53 +129,37 @@ export class ProductsService {
     try {
       const updatedProduct = await this.productsRepository.save(product);
 
+      // Emit a ProductUpdatedEvent
+      this.eventEmitter.emit(
+        'product.updated',
+        new ProductUpdatedEvent(updatedProduct),
+      );
+
       return updatedProduct;
     } catch (error) {
       console.error('[ProductsService - patchProduct]', error);
-      throw new RequestTimeoutException(
-        'Unable to process your request. Please try later.',
-        {
-          description: 'Error connecting to the database',
-        },
-      );
+      throw new RequestTimeoutException('Unable to update the product.');
     }
   }
 
   public async deleteProduct(productId: number, activeUser: ActiveUserData) {
-    // Fetch the product before deleting it
     const product = await this.getProductById(productId);
-
-    // Check ownership
     this._checkOwnership(product, activeUser.sub);
 
     try {
-      // Delete the product
       await this.productsRepository.delete(productId);
+
+      // Emit a ProductDeletedEvent
+      this.eventEmitter.emit(
+        'product.deleted',
+        new ProductDeletedEvent(product),
+      );
     } catch (error) {
-      console.error(
-        '[ProductsService - deleteProduct] Error deleting product:',
-        error,
-      );
-      throw new RequestTimeoutException(
-        'Unable to delete the product. Please try later.',
-        { description: 'Database delete operation failed' },
-      );
+      console.error('[ProductsService - deleteProduct]', error);
+      throw new RequestTimeoutException('Unable to delete the product.');
     }
 
-    let notificationStatus = { success: true, error: null };
-
-    try {
-      // Notify about the product deletion using the fetched product data
-      await this.notificationsService.notifyProductDeletion(product);
-    } catch (error) {
-      console.error(
-        '[ProductsService - deleteProduct] Notification error:',
-        error,
-      );
-      notificationStatus = { success: false, error: error.message };
-    }
-
-    return { deleted: true, productId, notificationStatus };
+    return { deleted: true, productId };
   }
 
   // PRIVATE METHODS:

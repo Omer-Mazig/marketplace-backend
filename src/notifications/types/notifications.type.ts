@@ -1,6 +1,6 @@
 export const NOTIFICATION_TYPES = [
   'product_deleted',
-  'product_update',
+  'product_updated',
   'wishlist_batch',
   'user_subscription',
 ] as const;

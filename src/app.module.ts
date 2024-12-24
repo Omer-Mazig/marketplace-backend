@@ -17,6 +17,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { WishlistModule } from './wishlist/wishlist.module';
 import { UploadsModule } from './uploads/uploads.module';
 import { NotificationsModule } from './notifications/notifications.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 const ENV = process.env.NODE_ENV;
 
@@ -28,6 +29,8 @@ const ENV = process.env.NODE_ENV;
     WishlistModule,
     UploadsModule,
     NotificationsModule,
+
+    EventEmitterModule.forRoot(),
 
     ConfigModule.forRoot({
       isGlobal: true,
