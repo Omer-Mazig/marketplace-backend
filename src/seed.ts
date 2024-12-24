@@ -2,6 +2,8 @@ import 'tsconfig-paths/register';
 import { DataSource } from 'typeorm';
 import { User } from 'src/users/user.entity';
 import { Product } from 'src/products/product.entity';
+import { Notification } from './notifications/notification.entity';
+
 import { UserTier } from 'src/users/enums/user-tier.enum';
 import { ProductCategory } from 'src/products/enums/product-category.enum';
 import * as bcrypt from 'bcrypt';
@@ -12,6 +14,7 @@ dotenv.config({ path: '.env.development' });
 const seed = async (dataSource: DataSource) => {
   const userRepository = dataSource.getRepository(User);
   const productRepository = dataSource.getRepository(Product);
+  const notificationsRepository = dataSource.getRepository(Notification);
 
   // Password hashing
   const hashedPassword = await bcrypt.hash('Password123!', 10);
@@ -171,7 +174,7 @@ const AppDataSource = new DataSource({
   username: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
-  entities: [User, Product],
+  entities: [User, Product, Notification],
   synchronize: true, // Ensures the schema is synchronized with entities
   dropSchema: true, // Drops the schema and recreates it each time (deletes all data)
 });
