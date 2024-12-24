@@ -42,6 +42,6 @@ import { CookieProvider } from './providers/cookie.provider';
     // and expiration based on environment variables.
     JwtModule.registerAsync(jwtConfig.asProvider()),
   ],
-  exports: [AuthService, HashingProvider, CookieProvider],
+  exports: [HashingProvider],
 })
 export class AuthModule {}
