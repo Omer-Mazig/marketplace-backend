@@ -7,7 +7,6 @@ import { AuthModule } from 'src/auth/auth.module';
 import { UserFinderProvider } from './providers/user-finder.provider';
 import { UserCreationProvider } from './providers/user-creation.provider';
 import { UserRepositoryProvider } from './providers/user-repository.provider';
-import { UserHashingProvider } from './providers/user-hashing.provider';
 
 @Module({
   controllers: [UsersController],
@@ -16,14 +15,12 @@ import { UserHashingProvider } from './providers/user-hashing.provider';
     UserFinderProvider,
     UserCreationProvider,
     UserRepositoryProvider,
-    UserHashingProvider,
   ],
   exports: [
     UsersService,
     UserFinderProvider,
     UserCreationProvider,
     UserRepositoryProvider,
-    UserHashingProvider,
   ],
   imports: [TypeOrmModule.forFeature([User]), forwardRef(() => AuthModule)],
 })

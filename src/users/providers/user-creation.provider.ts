@@ -6,13 +6,13 @@ import {
 import { UserRepositoryProvider } from './user-repository.provider';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { User } from '../user.entity';
-import { UserHashingProvider } from './user-hashing.provider';
+import { HashingProvider } from 'src/auth/providers/hashing.provider';
 
 @Injectable()
 export class UserCreationProvider {
   constructor(
     private readonly userRepository: UserRepositoryProvider,
-    private readonly userHashingProvider: UserHashingProvider,
+    private readonly hashingProvider: HashingProvider,
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
@@ -26,7 +26,7 @@ export class UserCreationProvider {
         );
       }
 
-      const hashedPassword = await this.userHashingProvider.hashPassword(
+      const hashedPassword = await this.hashingProvider.hashPassword(
         createUserDto.password,
       );
       const newUser = this.userRepository.createUser({

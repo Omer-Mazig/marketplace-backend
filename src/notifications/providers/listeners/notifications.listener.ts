@@ -6,7 +6,7 @@ import {
   ProductDeletedEvent,
   ProductUpdatedEvent,
 } from '../events/notification.events';
-import { Notification } from '../notification.entity';
+import { Notification } from '../../notification.entity';
 
 @Injectable()
 export class NotificationsListener {

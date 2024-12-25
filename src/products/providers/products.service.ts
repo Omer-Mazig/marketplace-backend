@@ -11,13 +11,12 @@ import { ArrayContains, Repository } from 'typeorm';
 import { ActiveUserData } from 'src/auth/interfaces/active-user-data.interface';
 import { Product } from '../product.entity';
 import { UserTier } from 'src/users/enums/user-tier.enum';
-import { UsersService } from 'src/users/providers/users.service';
 import { CreateProductDto } from '../dtos/create-product.dto';
 import { PatchProductDto } from '../dtos/patch-product.dto';
 import {
   ProductDeletedEvent,
   ProductUpdatedEvent,
-} from 'src/notifications/events/notification.events';
+} from 'src/notifications/providers/events/notification.events';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { UserFinderProvider } from 'src/users/providers/user-finder.provider';
 

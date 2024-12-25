@@ -7,6 +7,7 @@ import { User } from 'src/users/user.entity';
 import { Notification } from 'src/notifications/notification.entity';
 import { UserFinderProvider } from 'src/users/providers/user-finder.provider';
 import { UsersModule } from 'src/users/users.module';
+import { NotificationsModule } from 'src/notifications/notifications.module';
 
 @Module({
   controllers: [ProductsController],
@@ -14,6 +15,7 @@ import { UsersModule } from 'src/users/users.module';
   imports: [
     TypeOrmModule.forFeature([Product, User, Notification]),
     UsersModule,
+    NotificationsModule,
   ],
 })
 export class ProductsModule {}
