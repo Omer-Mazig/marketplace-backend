@@ -18,7 +18,6 @@ export class NotificationsListener {
   @OnEvent('product.deleted')
   async handleProductDeletion(event: ProductDeletedEvent) {
     const { product } = event;
-    console.log('product', product);
 
     if (!product.wishlistUsers || product.wishlistUsers.length === 0) {
       return;
