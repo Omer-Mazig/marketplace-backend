@@ -2,7 +2,6 @@ import { Injectable, RequestTimeoutException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary } from 'cloudinary';
 import * as streamifier from 'streamifier';
-import { Express } from 'express'; // Import Express for Multer types
 
 @Injectable()
 export class UploadToCloudinaryProvider {
